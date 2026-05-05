@@ -1,35 +1,79 @@
 import Link from './Link'
-import siteMetadata from '@/data/siteMetadata'
 import SocialIcon from '@/components/social-icons'
+import siteMetadata from '@/data/siteMetadata'
+
+const currentYear = new Date().getFullYear()
 
 export default function Footer() {
   return (
-    <footer>
-      <div className="mt-16 flex flex-col items-center">
-        <div className="mb-3 flex space-x-4">
-          <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size={6} />
-          <SocialIcon kind="github" href={siteMetadata.github} size={6} />
-          <SocialIcon kind="facebook" href={siteMetadata.facebook} size={6} />
-          <SocialIcon kind="youtube" href={siteMetadata.youtube} size={6} />
-          <SocialIcon kind="linkedin" href={siteMetadata.linkedin} size={6} />
-          <SocialIcon kind="twitter" href={siteMetadata.twitter} size={6} />
-          <SocialIcon kind="bluesky" href={siteMetadata.bluesky} size={6} />
-          <SocialIcon kind="x" href={siteMetadata.x} size={6} />
-          <SocialIcon kind="instagram" href={siteMetadata.instagram} size={6} />
-          <SocialIcon kind="threads" href={siteMetadata.threads} size={6} />
-          <SocialIcon kind="medium" href={siteMetadata.medium} size={6} />
+    <footer className="bg-navy mt-16 text-white">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div>
+            <p className="text-sm leading-relaxed text-gray-300">
+              An independent research and policy platform dedicated to rigorous analysis of national
+              security, international order, and strategic affairs.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-gold mb-4 text-sm font-semibold tracking-wider uppercase">
+              Quick Links
+            </h3>
+            <ul className="space-y-2 text-sm text-gray-300">
+              <li>
+                <Link href="/about" className="hover:text-gold transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/articles" className="hover:text-gold transition-colors">
+                  Articles
+                </Link>
+              </li>
+              <li>
+                <Link href="/journal" className="hover:text-gold transition-colors">
+                  NITIVYUH Journal
+                </Link>
+              </li>
+              <li>
+                <Link href="/experts" className="hover:text-gold transition-colors">
+                  Our Experts
+                </Link>
+              </li>
+              <li>
+                <Link href="/write-for-us" className="hover:text-gold transition-colors">
+                  Write For Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-gold transition-colors">
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-gold mb-4 text-sm font-semibold tracking-wider uppercase">
+              Contact
+            </h3>
+            <a
+              href={`mailto:${siteMetadata.email}`}
+              className="hover:text-gold mb-2 text-sm text-gray-300 transition-colors"
+            >
+              {siteMetadata.email}
+            </a>
+            {/* <div className="mt-4 flex space-x-3">
+              <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size={5} />
+              <SocialIcon kind="linkedin" href={siteMetadata.linkedin} size={5} />
+              <SocialIcon kind="x" href={siteMetadata.x} size={5} />
+            </div> */}
+          </div>
         </div>
-        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
-          <div>{siteMetadata.author}</div>
-          <div>{` • `}</div>
-          <div>{`© ${new Date().getFullYear()}`}</div>
-          <div>{` • `}</div>
-          <Link href="/">{siteMetadata.title}</Link>
-        </div>
-        <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
-          <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">
-            Tailwind Nextjs Theme
-          </Link>
+        <div className="border-gold/20 mt-8 border-t pt-6 text-center text-xs text-gray-400">
+          <p>
+            © {currentYear} {siteMetadata.title}. All rights reserved.
+          </p>
+          <p className="text-gold/70 mt-1 italic">सत्यं वद, धर्मं चर॥</p>
         </div>
       </div>
     </footer>

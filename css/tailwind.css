@@ -10,19 +10,27 @@
   --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
+  /* Institute brand colors */
+  --color-navy: #162755;
+  --color-navy-dark: #0d1929;
+  --color-navy-light: #1e3a6e;
+  --color-gold: #c9a227;
+  --color-gold-dark: #b8900f;
+  --color-gold-light: #d4b84a;
+
   /* Colors */
   /* Copied from https://tailwindcss.com/docs/theme#default-theme-variable-reference */
-  --color-primary-50: oklch(0.971 0.014 343.198);
-  --color-primary-100: oklch(0.948 0.028 342.258);
-  --color-primary-200: oklch(0.899 0.061 343.231);
-  --color-primary-300: oklch(0.823 0.12 346.018);
-  --color-primary-400: oklch(0.718 0.202 349.761);
-  --color-primary-500: oklch(0.656 0.241 354.308);
-  --color-primary-600: oklch(0.592 0.249 0.584);
-  --color-primary-700: oklch(0.525 0.223 3.958);
-  --color-primary-800: oklch(0.459 0.187 3.815);
-  --color-primary-900: oklch(0.408 0.153 2.432);
-  --color-primary-950: oklch(0.284 0.109 3.907);
+  --color-primary-50: oklch(0.98 0.03 88);
+  --color-primary-100: oklch(0.95 0.06 87);
+  --color-primary-200: oklch(0.90 0.09 86);
+  --color-primary-300: oklch(0.83 0.12 85);
+  --color-primary-400: oklch(0.77 0.15 84);
+  --color-primary-500: oklch(0.72 0.15 82);
+  --color-primary-600: oklch(0.63 0.14 80);
+  --color-primary-700: oklch(0.52 0.12 78);
+  --color-primary-800: oklch(0.42 0.10 76);
+  --color-primary-900: oklch(0.32 0.08 74);
+  --color-primary-950: oklch(0.22 0.06 72);
 
   --color-gray-50: oklch(0.985 0.002 247.839);
   --color-gray-100: oklch(0.967 0.003 264.542);
@@ -56,6 +64,13 @@
   If we ever want to remove these styles, we need to add an explicit border
   color utility to any element that depends on these defaults.
 */
+@layer utilities {
+  .full-bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+}
+
 @layer base {
   *,
   ::after,
