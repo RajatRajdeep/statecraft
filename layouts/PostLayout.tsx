@@ -57,11 +57,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           </header>
           <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
             <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
-              <dt className="text-xs tracking-wide font-medium text-gray-500 uppercase dark:text-gray-400">
+              <dt className="text-xs tracking-wide font-medium text-gray-500 uppercase dark:text-gray-400 text-right xl:text-left">
                 {authorDetails.length > 1 ? 'Authors' : 'Author'}
               </dt>
               <dd>
-                <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-y-8 xl:space-x-0">
+                <ul className="flex flex-wrap justify-end gap-4 sm:space-x-12 xl:block xl:space-y-8 xl:space-x-0">
                   {authorDetails.map((author, index) => (
                     <li className="flex items-center space-x-2" key={author.slug ?? index}>
                       {author.avatar && (

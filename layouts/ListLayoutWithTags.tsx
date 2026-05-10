@@ -81,7 +81,7 @@ export default function ListLayoutWithTags({
 
   return (
     <>
-      <div>
+      <div className="px-4 sm:px-6 lg:px-8 xl:px-0">
         <div className="pt-6 pb-6">
           <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:hidden sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             {title}
@@ -128,7 +128,7 @@ export default function ListLayoutWithTags({
               {displayPosts.map((post) => {
                 const { path, date, title, summary, tags } = post
                 return (
-                  <li key={path} className="py-5">
+                  <li key={path} className="py-6 border-b border-gray-200 dark:border-gray-700 last:border-0">
                     <article className="flex flex-col space-y-2 xl:space-y-0">
                       <dl>
                         <dt className="sr-only">Published on</dt>
