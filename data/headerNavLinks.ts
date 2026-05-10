@@ -2,7 +2,6 @@ const headerNavLinks = [
   { href: '/', title: 'Home' },
   { href: '/about', title: 'About Us' },
   { href: '/write-for-us', title: 'Write For Us' },
-  { href: '/experts', title: 'Experts' },
   {
     href: '/journal',
     title: 'Journal',

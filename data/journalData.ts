@@ -3,7 +3,7 @@ export const journalData = {
   subtitle: 'Quarterly Journal of History, Society and Politics',
   publisher: 'The Statecraft Institute',
   frequency: 'Quarterly',
-  language: 'English',
+  language: 'English/ Hindi',
   format: 'Online & Print',
   submissionEmail: 'thestatecraft@rediffmail.com',
   description:
@@ -15,11 +15,11 @@ export const journalData = {
     'Political philosophy and strategic thought',
     'Comparative political systems and governance',
     'Social history and its intersection with political change',
-    "South Asian history and contemporary politics",
+    'South Asian history and contemporary politics',
     'Intellectual history of strategy and security',
   ],
   authorGuidelines: {
-    wordCount: '5,000–8,000 words (including notes and references)',
+    wordCount: '3,500–5,000 words (including notes and references)',
     abstractLength: '150–200 words',
     keywords: '5–7 terms',
     fileFormat: 'Microsoft Word (.docx)',

@@ -16,7 +16,7 @@ export default function Home({ posts }) {
             The Statecraft Institute
           </p>
           <h1 className="mb-6 text-4xl leading-tight font-bold md:text-5xl">
-            Clarity of Thought on Matters of National Security
+            Calibrating Power. Interpreting Strategy
           </h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300">
             In-depth research, policy briefs, and strategic analysis on geopolitics, defence,

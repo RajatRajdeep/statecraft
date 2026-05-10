@@ -27,7 +27,10 @@ export default function AuthorGuidelinesPage() {
           <li>Abstract: {authorGuidelines.abstractLength}</li>
           <li>Keywords: {authorGuidelines.keywords}</li>
           <li>File format: {authorGuidelines.fileFormat}</li>
-          <li>Font: Times New Roman, 12pt, double-spaced</li>
+          <li>
+            Font: All English submissions in Times New Roman, size 12, amd Hindi submissions in
+            Krutidev010, size 14. A standard double line spacing(2.0) is required for both.
+          </li>
         </ul>
 
         <h2 className="text-navy dark:text-gold">Citation Style</h2>
