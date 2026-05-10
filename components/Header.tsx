@@ -2,6 +2,7 @@
 
 import siteMetadata from '@/data/siteMetadata'
 import headerNavLinks from '@/data/headerNavLinks'
+import Image from './Image'
 import Link from './Link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
@@ -82,9 +83,11 @@ const Header = () => {
     <header className="bg-navy sticky top-0 z-50 shadow-lg">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6">
         <Link href="/" aria-label={siteMetadata.headerTitle}>
-          <img
+          <Image
             src="/static/images/logo.jpeg"
             alt="The Statecraft Institute"
+            width={56}
+            height={56}
             className="h-14 w-auto rounded bg-white px-2 py-1"
           />
         </Link>

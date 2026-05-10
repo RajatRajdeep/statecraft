@@ -23,8 +23,6 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
   const author = allAuthors.find((a) => a.slug === slug)
   if (!author) return notFound()
 
-  const authorCore = coreContent(author)
-
   const articles = allCoreContent(
     sortPosts(allBlogs.filter((post) => post.authors?.includes(slug) && !post.draft))
   )
@@ -32,14 +30,14 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
   return (
     <div className="mx-auto max-w-4xl">
       <div className="full-bleed bg-navy mb-12 px-4 py-16 text-white sm:px-8 lg:px-16">
-        <div className="mx-auto max-w-4xl flex items-center gap-8">
+        <div className="mx-auto flex max-w-4xl items-center gap-8">
           {author.avatar && (
             <Image
               src={author.avatar}
               alt={author.name}
               width={96}
               height={96}
-              className="h-24 w-24 rounded-full object-cover ring-2 ring-gold flex-shrink-0"
+              className="ring-gold h-24 w-24 flex-shrink-0 rounded-full object-cover ring-2"
             />
           )}
           <div>
@@ -58,7 +56,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
 
       <div className="px-4 sm:px-8 lg:px-16">
         {author.body.raw.trim() && (
-          <div className="prose dark:prose-invert max-w-none mb-12">
+          <div className="prose dark:prose-invert mb-12 max-w-none">
             <MDXLayoutRenderer code={author.body.code} components={components} />
           </div>
         )}
@@ -81,11 +79,11 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
                       year: 'numeric',
                     })}
                   </p>
-                  <h3 className="text-navy dark:text-white group-hover:text-gold dark:group-hover:text-gold text-xl font-semibold transition-colors">
+                  <h3 className="group-hover:text-gold dark:group-hover:text-gold text-xl font-semibold transition-colors dark:text-white">
                     {post.title}
                   </h3>
                   {post.summary && (
-                    <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400 line-clamp-2">
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                       {post.summary}
                     </p>
                   )}

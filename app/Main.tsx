@@ -1,3 +1,4 @@
+import Image from '@/components/Image'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import Button from '@/components/Button'
@@ -52,7 +53,13 @@ export default function Home({ posts }) {
                 >
                   {images && images[0] && (
                     <div className="h-48 overflow-hidden">
-                      <img src={images[0]} alt={title} className="h-full w-full object-cover" />
+                      <Image
+                        src={images[0]}
+                        alt={title}
+                        width={400}
+                        height={192}
+                        className="h-full w-full object-cover"
+                      />
                     </div>
                   )}
                   <div className="p-5">
