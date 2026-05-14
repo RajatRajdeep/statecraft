@@ -37,30 +37,20 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
     <SectionContainer>
       <ScrollTopAndComment />
       <article>
-        <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700 px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div className="px-4 sm:px-6 lg:px-8 xl:divide-y xl:divide-gray-200 xl:px-12 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-6">
             <div className="space-y-1 text-center">
-              <dl className="space-y-10">
-                <div>
-                  <dt className="sr-only">Published on</dt>
-                  <dd className="text-base leading-6 font-medium text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
-                    </time>
-                  </dd>
-                </div>
-              </dl>
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
             </div>
           </header>
           <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
-            <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
-              <dt className="text-xs tracking-wide font-medium text-gray-500 uppercase dark:text-gray-400 text-right xl:text-left">
+            <dl className="border-b border-gray-200 pt-6 pb-10 xl:pt-11 dark:border-gray-700">
+              <dt className="mb-2 text-right text-xs font-medium tracking-wide text-gray-500 uppercase xl:text-left dark:text-gray-400">
                 {authorDetails.length > 1 ? 'Authors' : 'Author'}
               </dt>
-              <dd>
+              <dd className="pt-2">
                 <ul className="flex flex-wrap justify-end gap-4 sm:space-x-12 xl:block xl:space-y-8 xl:space-x-0">
                   {authorDetails.map((author, index) => (
                     <li className="flex items-center space-x-2" key={author.slug ?? index}>
@@ -78,7 +68,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                         <dd>
                           <Link
                             href={`/authors/${author.slug}`}
-                            className="text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+                            className="hover:text-primary-500 dark:hover:text-primary-400 text-gray-900 dark:text-gray-100"
                           >
                             {author.name}
                           </Link>
@@ -101,9 +91,21 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   ))}
                 </ul>
               </dd>
+              <div className="mt-6 border-t border-gray-200 pt-6 dark:border-gray-700">
+                <dt className="text-right text-xs font-medium tracking-wide text-gray-500 uppercase xl:text-left dark:text-gray-400">
+                  Published on
+                </dt>
+                <dd className="mt-1 text-right text-sm leading-6 text-gray-500 xl:text-left dark:text-gray-400">
+                  <time dateTime={date}>
+                    {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                  </time>
+                </dd>
+              </div>
             </dl>
             <div className="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
-              <div className="prose dark:prose-invert max-w-none pt-10 pb-8 text-justify">{children}</div>
+              <div className="prose dark:prose-invert max-w-none pt-10 pb-8 text-justify">
+                {children}
+              </div>
               {/* <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
                 <Link href={discussUrl(path)} rel="nofollow">
                   Discuss on Twitter
