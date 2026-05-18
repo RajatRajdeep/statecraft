@@ -1,7 +1,8 @@
 {
-  "south-asia": 1,
+  "security": 1,
+  "south-asia": 2,
+  "geopolitics": 4,
   "conflict": 1,
-  "geopolitics": 3,
   "indo-pacific": 2,
   "energy": 1,
   "maritime": 1

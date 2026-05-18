@@ -38,7 +38,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
       <ScrollTopAndComment />
       <article>
         <div className="px-4 sm:px-6 lg:px-8 xl:divide-y xl:divide-gray-200 xl:px-12 xl:dark:divide-gray-700">
-          <header className="pt-6 xl:pb-6">
+          <header className="pt-12 xl:pt-16 xl:pb-6">
             <div className="space-y-1 text-center">
               <div>
                 <PageTitle>{title}</PageTitle>
