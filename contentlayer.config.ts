@@ -128,9 +128,9 @@ export const Blog = defineDocumentType(() => ({
   },
 }))
 
-export const Authors = defineDocumentType(() => ({
-  name: 'Authors',
-  filePathPattern: 'authors/**/*.mdx',
+export const People = defineDocumentType(() => ({
+  name: 'People',
+  filePathPattern: 'people/**/*.mdx',
   contentType: 'mdx',
   fields: {
     name: { type: 'string', required: true },
@@ -143,13 +143,19 @@ export const Authors = defineDocumentType(() => ({
     linkedin: { type: 'string' },
     github: { type: 'string' },
     layout: { type: 'string' },
+    profileUrl: { type: 'string' },
+    isAuthor: { type: 'boolean', default: false },
+    isBoardMember: { type: 'boolean', default: false },
+    boardRole: { type: 'string' },
+    boardSection: { type: 'enum', options: ['editorial', 'advisory'] },
+    boardOrder: { type: 'number' },
   },
   computedFields,
 }))
 
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Authors],
+  documentTypes: [Blog, People],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [

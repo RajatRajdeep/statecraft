@@ -81,7 +81,7 @@ function NavItem({ link }: { link: NavLink }) {
 const Header = () => {
   return (
     <header className="bg-navy sticky top-0 z-50 shadow-lg">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6">
+      <div className="mx-auto flex items-center justify-between px-4 py-2 sm:px-6">
         <Link href="/" aria-label={siteMetadata.headerTitle}>
           <Image
             src="/static/images/logo.jpeg"
