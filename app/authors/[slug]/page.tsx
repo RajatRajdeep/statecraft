@@ -43,13 +43,8 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
           <div>
             <p className="text-gold mb-1 text-sm font-semibold tracking-widest uppercase">Author</p>
             <h1 className="text-3xl font-bold md:text-4xl">{author.name}</h1>
-            {(author.occupation || author.company) && (
-              <p className="mt-2 text-gray-300">
-                {author.occupation}
-                {author.occupation && author.company && ', '}
-                {author.company}
-              </p>
-            )}
+            {author.occupation && <p className="mt-2 text-gray-300">{author.occupation}</p>}
+            {author.company && <p className="text-gray-300">{author.company}</p>}
           </div>
         </div>
       </div>

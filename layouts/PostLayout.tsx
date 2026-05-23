@@ -50,43 +50,59 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               <dt className="mb-2 text-right text-xs font-medium tracking-wide text-gray-500 uppercase xl:text-left dark:text-gray-400">
                 {authorDetails.length > 1 ? 'Authors' : 'Author'}
               </dt>
-              <dd className="pt-2">
-                <ul className="flex flex-wrap justify-end gap-4 sm:space-x-12 xl:block xl:space-y-8 xl:space-x-0">
+              <dd>
+                <ul className="flex flex-wrap justify-end gap-4 xl:block xl:space-y-8 xl:space-x-0">
                   {authorDetails.map((author, index) => (
-                    <li className="flex items-center space-x-2" key={author.slug ?? index}>
-                      {author.avatar && (
-                        <Image
-                          src={author.avatar}
-                          width={38}
-                          height={38}
-                          alt="avatar"
-                          className="h-10 w-10 rounded-full"
-                        />
-                      )}
-                      <dl className="text-sm leading-5 font-medium whitespace-nowrap">
-                        <dt className="sr-only">Name</dt>
-                        <dd>
+                    <li key={author.slug ?? index}>
+                      {/* Mobile: circular avatar */}
+                      <div className="flex items-center space-x-2 xl:hidden">
+                        {author.avatar && (
+                          <Image
+                            src={author.avatar}
+                            width={38}
+                            height={38}
+                            alt={author.name}
+                            className="h-10 w-10 rounded-full object-cover"
+                          />
+                        )}
+                        <Link
+                          href={`/authors/${author.slug}`}
+                          className="text-sm font-medium text-gray-900 hover:text-[#c9a84c] dark:text-gray-100 dark:hover:text-[#c9a84c]"
+                        >
+                          {author.name}
+                        </Link>
+                      </div>
+                      {/* Desktop: full card */}
+                      <div className="hidden w-5/6 overflow-hidden rounded-sm bg-[#f2ede8] xl:block dark:bg-gray-800">
+                        {author.avatar && (
+                          <div className="relative aspect-square w-full">
+                            <Image
+                              src={author.avatar}
+                              fill
+                              alt={author.name}
+                              className="object-cover object-top"
+                            />
+                          </div>
+                        )}
+                        <div className="px-4 pt-4 pb-5 text-center">
                           <Link
                             href={`/authors/${author.slug}`}
-                            className="hover:text-primary-500 dark:hover:text-primary-400 text-gray-900 dark:text-gray-100"
+                            className="text-lg font-bold text-gray-900 hover:text-[#c9a84c] dark:text-gray-100 dark:hover:text-[#c9a84c]"
                           >
                             {author.name}
                           </Link>
-                        </dd>
-                        <dt className="sr-only">Twitter</dt>
-                        <dd>
-                          {author.twitter && (
-                            <Link
-                              href={author.twitter}
-                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                            >
-                              {author.twitter
-                                .replace('https://twitter.com/', '@')
-                                .replace('https://x.com/', '@')}
-                            </Link>
+                          {author.occupation && (
+                            <p className="mt-1 text-base leading-snug text-gray-500 dark:text-gray-400">
+                              {author.occupation}
+                            </p>
                           )}
-                        </dd>
-                      </dl>
+                          {author.company && (
+                            <p className="text-base leading-snug text-gray-500 dark:text-gray-400">
+                              {author.company}
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </li>
                   ))}
                 </ul>

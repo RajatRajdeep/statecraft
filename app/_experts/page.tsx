@@ -1,5 +1,6 @@
 import { genPageMetadata } from 'app/seo'
 import expertsData from '@/data/expertsData'
+import Image from '@/components/Image'
 
 export const metadata = genPageMetadata({ title: 'Experts' })
 
@@ -24,9 +25,11 @@ export default function ExpertsPage() {
             className="overflow-hidden rounded-lg border border-gray-200 transition-shadow hover:shadow-lg dark:border-gray-700"
           >
             <div className="h-56 overflow-hidden bg-gray-100">
-              <img
+              <Image
                 src={expert.image}
                 alt={expert.name}
+                width={400}
+                height={224}
                 className="h-full w-full object-cover grayscale transition-all duration-300 hover:grayscale-0"
               />
             </div>

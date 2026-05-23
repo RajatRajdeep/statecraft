@@ -36,13 +36,13 @@ No coding required. Everything is done through the browser.
 
 ```
 ---
-title: 'Your Full Article Title'
-date: '2026-05-22'
-tags: ['indo-pacific', 'foreign-policy']
+title: "Your Full Article Title"
+date: "2026-05-22"
+tags: ["indo-pacific", "foreign-policy"]
 draft: false
-summary: 'One or two sentences describing the article. This appears in the article list.'
-images: ['/static/images/articles/article5.jpg']
-authors: ['author-slug-here']
+summary: "One or two sentences describing the article. This appears in the article list."
+images: ["/static/images/articles/article5.jpg"]
+authors: ["author-slug-here"]
 ---
 
 ## Summary

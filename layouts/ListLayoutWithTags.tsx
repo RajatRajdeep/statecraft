@@ -33,32 +33,35 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
   const nextPage = currentPage + 1 <= totalPages
 
   return (
-    <div className="space-y-2 pt-6 pb-8 md:space-y-5">
-      <nav className="flex justify-between">
-        {!prevPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
-            Previous
-          </button>
-        )}
-        {prevPage && (
+    <div className="pt-8 pb-10">
+      <nav className="flex items-center justify-between">
+        {!prevPage ? (
+          <span className="cursor-not-allowed text-base font-semibold text-gray-300 dark:text-gray-600">
+            &larr; Previous
+          </span>
+        ) : (
           <Link
             href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
             rel="prev"
+            className="text-base font-semibold text-[#1a3a5c] transition-colors hover:text-[#c9a84c] dark:text-gray-300 dark:hover:text-[#c9a84c]"
           >
-            Previous
+            &larr; Previous
           </Link>
         )}
-        <span>
+        <span className="text-base font-semibold text-[#1a3a5c] dark:text-gray-300">
           {currentPage} of {totalPages}
         </span>
-        {!nextPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
-            Next
-          </button>
-        )}
-        {nextPage && (
-          <Link href={`/${basePath}/page/${currentPage + 1}`} rel="next">
-            Next
+        {!nextPage ? (
+          <span className="cursor-not-allowed text-base font-semibold text-gray-300 dark:text-gray-600">
+            Next &rarr;
+          </span>
+        ) : (
+          <Link
+            href={`/${basePath}/page/${currentPage + 1}`}
+            rel="next"
+            className="text-base font-semibold text-[#1a3a5c] transition-colors hover:text-[#c9a84c] dark:text-gray-300 dark:hover:text-[#c9a84c]"
+          >
+            Next &rarr;
           </Link>
         )}
       </nav>
@@ -123,12 +126,15 @@ export default function ListLayoutWithTags({
               </ul>
             </div>
           </div>
-          <div>
+          <div className="mx-8 w-full">
             <ul>
               {displayPosts.map((post) => {
                 const { path, date, title, summary, tags } = post
                 return (
-                  <li key={path} className="py-6 border-b border-gray-200 dark:border-gray-700 last:border-0">
+                  <li
+                    key={path}
+                    className="border-b border-gray-200 py-6 last:border-0 dark:border-gray-700"
+                  >
                     <article className="flex flex-col space-y-2 xl:space-y-0">
                       <dl>
                         <dt className="sr-only">Published on</dt>
@@ -146,7 +152,9 @@ export default function ListLayoutWithTags({
                             </Link>
                           </h2>
                           <div className="flex flex-wrap">
-                            {tags?.map((tag) => <Tag key={tag} text={tag} />)}
+                            {tags?.map((tag) => (
+                              <Tag key={tag} text={tag} />
+                            ))}
                           </div>
                         </div>
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">

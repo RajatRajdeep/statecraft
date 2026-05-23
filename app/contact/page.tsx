@@ -37,7 +37,7 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="flex w-screen flex-col gap-6">
+      <div className="flex w-screen flex-col gap-6 px-4">
         {contactPoints.map((point) => (
           <div key={point.label} className="flex items-start gap-4">
             <div className="bg-navy flex h-10 w-10 shrink-0 items-center justify-center rounded-full">

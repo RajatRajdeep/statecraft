@@ -1,9 +1,14 @@
 {
+  "south-asia": 3,
+  "neighbourhood": 1,
+  "democracy": 1,
+  "middle-east": 2,
+  "energy": 3,
+  "geopolitics": 5,
+  "indo-pacific": 3,
+  "asean": 1,
+  "south-east-asia": 1,
+  "conflict": 2,
   "security": 1,
-  "south-asia": 2,
-  "geopolitics": 4,
-  "conflict": 1,
-  "indo-pacific": 2,
-  "energy": 1,
   "maritime": 1
 }
