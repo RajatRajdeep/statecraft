@@ -5,9 +5,9 @@ export const metadata = genPageMetadata({ title: 'About Us' })
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="w-full">
       <div className="full-bleed bg-navy mb-12 px-4 py-16 text-white sm:px-8 lg:px-16">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto">
           <p className="text-gold mb-3 text-sm font-semibold tracking-widest uppercase">
             Who We Are
           </p>
@@ -15,7 +15,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <div className="full-bleed prose prose-lg dark:prose-invert max-w-none px-4 sm:px-8 lg:px-16">
+      <div className="prose prose-lg dark:prose-invert max-w-none px-4 sm:px-8 lg:px-16">
         <p className="text-xl leading-relaxed font-medium text-gray-700 dark:text-gray-300">
           {aboutData.description}
         </p>

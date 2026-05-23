@@ -7,9 +7,9 @@ export default function AuthorGuidelinesPage() {
   const { authorGuidelines, name, submissionEmail } = journalData
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="w-full">
       <div className="full-bleed bg-navy mb-12 px-4 py-16 text-white sm:px-8 lg:px-16">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto">
           <p className="text-gold mb-3 text-sm font-semibold tracking-widest uppercase">
             {name} Journal
           </p>
@@ -17,7 +17,7 @@ export default function AuthorGuidelinesPage() {
         </div>
       </div>
 
-      <div className="prose prose-lg dark:prose-invert max-w-none">
+      <div className="prose prose-lg dark:prose-invert max-w-none px-4 sm:px-8 lg:px-16">
         <h2 className="text-navy dark:text-gold">Submission Requirements</h2>
         <ul>
           <li>Manuscripts must be original and not under review elsewhere</li>
@@ -35,8 +35,8 @@ export default function AuthorGuidelinesPage() {
 
         <h2 className="text-navy dark:text-gold">Citation Style</h2>
         <p>
-          {name} uses the <strong>{authorGuidelines.citationStyle}</strong> footnote-bibliography
-          format. All citations must be complete and verifiable. Avoid ibid. for online citations.
+          {name} uses the <strong>{authorGuidelines.citationStyle}</strong> format. All citations
+          must be complete and verifiable. Avoid ibid. for online citations.
         </p>
 
         <h2 className="text-navy dark:text-gold">Anonymisation</h2>

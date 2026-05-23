@@ -7,9 +7,9 @@ export const metadata = genPageMetadata({ title: 'NITIVYUH Journal' })
 
 export default function JournalPage() {
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="w-full">
       <div className="full-bleed bg-navy mb-12 px-4 py-16 text-white sm:px-8 lg:px-16">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto">
           <p className="text-gold mb-3 text-sm font-semibold tracking-widest uppercase">
             Publication
           </p>
@@ -19,14 +19,24 @@ export default function JournalPage() {
         </div>
       </div>
       <div className="flex px-4 sm:px-8 lg:px-16">
-        <div className="mb-12 grid grid-cols-1 gap-8 px-4 sm:px-8 md:grid-cols-3 lg:px-16">
+        <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="prose prose-lg dark:prose-invert max-w-none md:col-span-2">
             <h2 className="text-navy dark:text-gold">About {journalData.name}</h2>
             <p>{journalData.description}</p>
+
+            <h2 className="text-navy dark:text-gold">Mission</h2>
             <p>{journalData.mission}</p>
-            <h3 className="text-navy dark:text-gold">Scope and Focus</h3>
+
+            <h2 className="text-navy dark:text-gold">Editorial Standards</h2>
+            <p>{journalData.editorialStandards}</p>
+
+            <h2 className="text-navy dark:text-gold">Subject Areas</h2>
+            <p>
+              {journalData.name} welcomes manuscripts across a broad range of disciplines, including
+              but not limited to:
+            </p>
             <ul>
-              {journalData.scope.map((item) => (
+              {journalData.subjectAreas.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -61,11 +71,6 @@ export default function JournalPage() {
               </h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link href="/journal/about" className="text-gold hover:underline">
-                    About the Journal →
-                  </Link>
-                </li>
-                <li>
                   <Link href="/journal/author-guidelines" className="text-gold hover:underline">
                     Author Guidelines →
                   </Link>
@@ -83,14 +88,14 @@ export default function JournalPage() {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 pt-8 text-center dark:border-gray-700">
+        {/* <div className="border-t border-gray-200 pt-8 text-center dark:border-gray-700">
           <p className="mb-4 text-gray-600 dark:text-gray-400">
             Interested in contributing to {journalData.name}?
           </p>
           <Button href="/journal/author-guidelines" variant="secondary">
             View Author Guidelines
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   )

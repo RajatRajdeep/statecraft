@@ -5,8 +5,8 @@ import PageTitle from '@/components/PageTitle'
 import { components } from '@/components/MDXComponents'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { sortPosts, coreContent, allCoreContent } from 'pliny/utils/contentlayer'
-import { allBlogs, allAuthors } from 'contentlayer/generated'
-import type { Authors, Blog } from 'contentlayer/generated'
+import { allBlogs, allPeople } from 'contentlayer/generated'
+import type { People, Blog } from 'contentlayer/generated'
 import PostSimple from '@/layouts/PostSimple'
 import PostLayout from '@/layouts/PostLayout'
 import PostBanner from '@/layouts/PostBanner'
@@ -29,8 +29,8 @@ export async function generateMetadata(props: {
   const post = allBlogs.find((p) => p.slug === slug)
   const authorList = post?.authors || ['default']
   const authorDetails = authorList.map((author) => {
-    const authorResults = allAuthors.find((p) => p.slug === author)
-    return coreContent(authorResults as Authors)
+    const authorResults = allPeople.find((p) => p.slug === author)
+    return coreContent(authorResults as People)
   })
   if (!post) {
     return
@@ -92,8 +92,8 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
   const post = allBlogs.find((p) => p.slug === slug) as Blog
   const authorList = post?.authors || ['default']
   const authorDetails = authorList.map((author) => {
-    const authorResults = allAuthors.find((p) => p.slug === author)
-    return coreContent(authorResults as Authors)
+    const authorResults = allPeople.find((p) => p.slug === author)
+    return coreContent(authorResults as People)
   })
   const mainContent = coreContent(post)
   const jsonLd = post.structuredData

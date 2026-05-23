@@ -7,10 +7,11 @@ const headerNavLinks = [
     title: 'Journal',
     children: [
       { href: '/journal', title: 'NITIVYUH: Quarterly Journal' },
-      { href: '/journal/about', title: 'About the Journal' },
       { href: '/journal/author-guidelines', title: 'Author Guidelines' },
+      { href: '/journal/editorial-board', title: 'Editorial Board' },
     ],
   },
+  // { href: '/team', title: 'Our Team' },
   { href: '/contact', title: 'Contact Us' },
 ]
 

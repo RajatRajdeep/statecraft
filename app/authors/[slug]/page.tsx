@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { allAuthors, allBlogs } from 'contentlayer/generated'
+import { allPeople, allBlogs } from 'contentlayer/generated'
 import { coreContent, sortPosts, allCoreContent } from 'pliny/utils/contentlayer'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { components } from '@/components/MDXComponents'
@@ -8,19 +8,19 @@ import Link from '@/components/Link'
 import { genPageMetadata } from 'app/seo'
 
 export async function generateStaticParams() {
-  return allAuthors.map((author) => ({ slug: author.slug }))
+  return allPeople.filter((p) => p.isAuthor).map((p) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const author = allAuthors.find((a) => a.slug === slug)
+  const author = allPeople.find((p) => p.slug === slug && p.isAuthor)
   if (!author) return {}
   return genPageMetadata({ title: author.name })
 }
 
 export default async function AuthorPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const author = allAuthors.find((a) => a.slug === slug)
+  const author = allPeople.find((p) => p.slug === slug && p.isAuthor)
   if (!author) return notFound()
 
   const articles = allCoreContent(

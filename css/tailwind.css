@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@plugin "@tailwindcss/forms";
+@plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 @source '../node_modules/pliny';
 @custom-variant dark (&:where(.dark, .dark *));
@@ -7,7 +7,8 @@
 /* Core theme configuration */
 @theme {
   /* Font families */
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+  --font-sans:
+    var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* Institute brand colors */
@@ -22,13 +23,13 @@
   /* Copied from https://tailwindcss.com/docs/theme#default-theme-variable-reference */
   --color-primary-50: oklch(0.98 0.03 88);
   --color-primary-100: oklch(0.95 0.06 87);
-  --color-primary-200: oklch(0.90 0.09 86);
+  --color-primary-200: oklch(0.9 0.09 86);
   --color-primary-300: oklch(0.83 0.12 85);
   --color-primary-400: oklch(0.77 0.15 84);
   --color-primary-500: oklch(0.72 0.15 82);
   --color-primary-600: oklch(0.63 0.14 80);
   --color-primary-700: oklch(0.52 0.12 78);
-  --color-primary-800: oklch(0.42 0.10 76);
+  --color-primary-800: oklch(0.42 0.1 76);
   --color-primary-900: oklch(0.32 0.08 74);
   --color-primary-950: oklch(0.22 0.06 72);
 

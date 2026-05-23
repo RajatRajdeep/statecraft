@@ -6,9 +6,9 @@ export const metadata = genPageMetadata({ title: 'Write For Us' })
 
 export default function WriteForUsPage() {
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="w-full">
       <div className="full-bleed bg-navy mb-12 px-4 py-16 text-white sm:px-8 lg:px-16">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto">
           <p className="text-gold mb-3 text-sm font-semibold tracking-widest uppercase">
             Contribute
           </p>
@@ -58,7 +58,7 @@ export default function WriteForUsPage() {
         </p>
       </div>
 
-      <div className="mt-12 text-center">
+      <div className="mt-12 px-4 text-center sm:px-8 lg:px-16">
         <Button
           href={`mailto:${writeForUsData.submissionEmail}?subject=Commentary Submission`}
           variant="primary"

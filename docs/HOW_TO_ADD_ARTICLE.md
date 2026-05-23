@@ -62,24 +62,24 @@ Your paragraph here.
 
 ### Filling in the fields
 
-| Field | What to put |
-|---|---|
-| `title` | The full article title, inside single quotes |
-| `date` | Today's date in `YYYY-MM-DD` format |
-| `tags` | 1–3 topic tags, **lowercase with hyphens** e.g. `'indo-pacific'`, `'foreign-policy'` |
-| `draft` | Always `false` to publish, `true` to hide |
-| `summary` | 2-3 sentence description shown in the article list |
-| `images` | Path to your uploaded image e.g. `'/static/images/articles/article5.jpg'` |
-| `authors` | The author's slug (see list below) |
+| Field     | What to put                                                                          |
+| --------- | ------------------------------------------------------------------------------------ |
+| `title`   | The full article title, inside single quotes                                         |
+| `date`    | Today's date in `YYYY-MM-DD` format                                                  |
+| `tags`    | 1–3 topic tags, **lowercase with hyphens** e.g. `'indo-pacific'`, `'foreign-policy'` |
+| `draft`   | Always `false` to publish, `true` to hide                                            |
+| `summary` | 2-3 sentence description shown in the article list                                   |
+| `images`  | Path to your uploaded image e.g. `'/static/images/articles/article5.jpg'`            |
+| `authors` | The author's slug (see list below)                                                   |
 
 ### Author slugs
 
-| Author | Slug to use |
-|---|---|
-| Bhavya Chaturvedi | `bhavya-chaturvedi` |
-| Chakravarti Singh | `chakravarti-singh` |
+| Author             | Slug to use          |
+| ------------------ | -------------------- |
+| Bhavya Chaturvedi  | `bhavya-chaturvedi`  |
+| Chakravarti Singh  | `chakravarti-singh`  |
 | Manish Kumar Singh | `manish-kumar-singh` |
-| Prakash Jangid | `prakash-jangid` |
+| Prakash Jangid     | `prakash-jangid`     |
 
 ### Formatting your article
 
@@ -105,21 +105,23 @@ To preview your markdown before committing, paste it here: https://markdownlivep
 
 If the author is not in the list above:
 
-1. In the editor, open **`data/authors/`** and create a new file named `firstname-lastname.mdx`
+1. In the editor, open **`data/people/`** and create a new file named `firstname-lastname.mdx`
 2. Paste the following and fill in the details:
 
 ```
 ---
 name: Full Name
-avatar: /static/images/authors/firstname-lastname.jpeg
+avatar: /static/images/people/firstname-lastname.jpeg
 occupation: Job Title
 company: Organisation Name
+isAuthor: true
+isBoardMember: false
 ---
 
 A short 2–3 sentence bio.
 ```
 
-3. Also upload their photo to **`public/static/images/authors/`** — name it the same as the avatar field above
+3. Also upload their photo to **`public/static/images/people/`** — name it the same as the avatar field above
    - A **1:1 ratio (square) image** is preferred e.g. 400×400px or 800×800px
 
 ---

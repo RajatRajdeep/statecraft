@@ -1,6 +1,7 @@
 Add a new article to the Statecraft Institute site.
 
 The user will provide:
+
 - Article content as a file path in `$ARGUMENTS` or pasted text in the chat
 - Article image file
 - If a new author: author image file and bio details
@@ -14,6 +15,7 @@ If a file path is given in `$ARGUMENTS`, read that file. Otherwise use the text 
 ### 2. Handle the article image
 
 Ask the user to provide the article image file path. Then:
+
 - Check existing files in `public/static/images/articles/` to find the next number in the sequence
 - Copy the image to `public/static/images/articles/article<number>.jpg`
 - Remember this path for the frontmatter e.g. `/static/images/articles/article5.jpg`
@@ -36,6 +38,7 @@ Extract the following from the content. If any are missing or ambiguous, ask bef
 ### 4. Handle a new author (if applicable)
 
 If the author is not in the list above, ask the user to provide:
+
 - Full name
 - Occupation / job title
 - Organisation / company
@@ -43,6 +46,7 @@ If the author is not in the list above, ask the user to provide:
 - Author photo file path
 
 Then:
+
 - Derive the slug as `firstname-lastname` (lowercase, hyphenated)
 - Copy the photo to `public/static/images/authors/firstname-lastname.jpeg`
 - Create `data/authors/firstname-lastname.mdx`:
@@ -63,6 +67,7 @@ Bio text here.
 ### 5. Generate the article filename
 
 Derive from the title: lowercase, spaces replaced with hyphens, no special characters, ending in `.mdx`
+
 - Example: "India's Foreign Policy 2026" → `indias-foreign-policy-2026.mdx`
 
 Show the filename to the user and confirm before writing.
@@ -96,12 +101,14 @@ authors: ['<author-slug>']
 ### 7. Confirm what was created
 
 List all files created or copied:
+
 - `public/static/images/articles/article<number>.jpg`
 - `data/articles/<filename>.mdx`
-- `public/static/images/authors/firstname-lastname.jpeg` *(if new author)*
-- `data/authors/firstname-lastname.mdx` *(if new author)*
+- `public/static/images/authors/firstname-lastname.jpeg` _(if new author)_
+- `data/authors/firstname-lastname.mdx` _(if new author)_
 
 ## Rules
+
 - Never guess the author slug — always confirm with the user
 - Never proceed without the article image
 - Tags must be lowercase with hyphens, no spaces
