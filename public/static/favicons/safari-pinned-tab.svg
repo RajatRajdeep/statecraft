@@ -1,21 +1,22 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
- "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="107.000000pt" height="107.000000pt" viewBox="0 0 107.000000 107.000000"
- preserveAspectRatio="xMidYMid meet">
-<metadata>
-Created by potrace 1.11, written by Peter Selinger 2001-2013
-</metadata>
-<g transform="translate(0.000000,107.000000) scale(0.100000,-0.100000)"
-fill="#000000" stroke="none">
-<path d="M609 942 c-17 -18 -95 -88 -289 -258 -117 -102 -177 -155 -204 -179
--6 -5 -31 -28 -56 -50 l-45 -39 -1 -144 -1 -143 21 18 c11 10 25 23 31 28 7 6
-46 41 88 79 86 77 86 77 216 196 52 47 103 93 115 103 11 10 50 45 86 77 l65
-59 -1 131 c0 71 -3 132 -5 135 -3 2 -12 -3 -20 -13z"/>
-<path d="M929 857 c-64 -56 -145 -128 -180 -159 -35 -31 -75 -66 -89 -78 -55
--47 -68 -59 -150 -131 l-85 -76 2 -129 c1 -71 2 -135 2 -143 1 -11 5 -10 19 5
-10 10 54 51 98 89 43 39 92 83 109 99 26 24 63 58 189 171 12 11 47 43 77 70
-30 28 70 63 89 79 l35 29 1 138 c1 77 1 139 0 139 0 -1 -53 -47 -117 -103z"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="48" fill="#162755"/>
+  <circle cx="50" cy="50" r="20" fill="none" stroke="#C9A227" stroke-width="3"/>
+  <circle cx="50" cy="50" r="4" fill="#C9A227"/>
+  <!-- spokes -->
+  <g stroke="#ffffff" stroke-width="1.5">
+    <line x1="50" y1="30" x2="50" y2="70"/>
+    <line x1="30" y1="50" x2="70" y2="50"/>
+    <line x1="36" y1="36" x2="64" y2="64"/>
+    <line x1="64" y1="36" x2="36" y2="64"/>
+    <line x1="30" y1="43" x2="70" y2="57"/>
+    <line x1="30" y1="57" x2="70" y2="43"/>
+    <line x1="43" y1="30" x2="57" y2="70"/>
+    <line x1="57" y1="30" x2="43" y2="70"/>
+    <line x1="33" y1="40" x2="67" y2="60"/>
+    <line x1="33" y1="60" x2="67" y2="40"/>
+    <line x1="40" y1="33" x2="60" y2="67"/>
+    <line x1="60" y1="33" x2="40" y2="67"/>
+  </g>
+  <!-- outer ring -->
+  <circle cx="50" cy="50" r="38" fill="none" stroke="#C9A227" stroke-width="2"/>
 </svg>

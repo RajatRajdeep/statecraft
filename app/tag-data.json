@@ -2,13 +2,15 @@
   "south-asia": 3,
   "neighbourhood": 1,
   "democracy": 1,
-  "middle-east": 2,
-  "energy": 3,
-  "geopolitics": 5,
+  "brics": 1,
+  "geopolitics": 6,
+  "diplomacy": 1,
   "indo-pacific": 3,
+  "energy": 3,
+  "middle-east": 2,
+  "maritime": 1,
   "asean": 1,
   "south-east-asia": 1,
-  "conflict": 2,
   "security": 1,
-  "maritime": 1
+  "conflict": 2
 }
