@@ -1,0 +1,54 @@
+{
+  "skill_name": "add-article",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to add a new article to the site. The title is 'India's Arctic Ambitions: Strategic Interests in a Melting North'. The author is Prakash Jangid. Tags: arctic, foreign-policy, india. Summary: As Arctic ice retreats, India is quietly positioning itself as a key stakeholder in the region. This piece examines India's observer status in the Arctic Council, its research presence at Svalbard, and why the Arctic matters for Indian energy and trade interests. Use article14 as the image. For the body just put placeholder text.",
+      "expected_output": "Creates data/articles/india-s-arctic-ambitions-strategic-interests-in-a-melting-north.mdx (or similar sensible slug) with correct MDX frontmatter using single quotes, correct tags array, author set to prakash-jangid, image path /static/images/articles/article14.jpg, draft: false, and a placeholder body with the disclaimer at the bottom. Git commit staged with message starting 'add article:'.",
+      "files": [],
+      "expectations": [
+        "MDX file created under data/articles/ with a kebab-case slug derived from the title",
+        "Frontmatter uses single-quoted values matching the project's existing style",
+        "author field is set to 'prakash-jangid'",
+        "tags array contains arctic, foreign-policy, and india",
+        "images field references /static/images/articles/article14.jpg",
+        "draft is set to false",
+        "File ends with the standard disclaimer line",
+        "A git commit is staged or created with message starting 'add article:'"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Add an article called 'The Quad's Semiconductor Gambit' by a new author: Dr. Ananya Mehta, Senior Fellow at Observer Research Foundation. Her bio: Dr. Ananya Mehta is a Senior Fellow at ORF specialising in technology governance and Indo-Pacific supply chains. She has advised multiple ministries on semiconductor policy. Tags: quad, technology, indo-pacific. Summary: The Quad nations are coordinating a historic realignment of global chip supply chains away from East Asian concentration. This article maps the key initiatives — from India's fab incentives to Australia's rare-earth strategy — and assesses whether the grouping can deliver. Use article15 for the image. Body: placeholder.",
+      "expected_output": "Creates data/articles/the-quad-s-semiconductor-gambit.mdx (or similar slug) with correct frontmatter AND creates data/people/dr-ananya-mehta.mdx with the new author's details. Both files have correct structure. Git commit includes both files.",
+      "files": [],
+      "expectations": [
+        "Article MDX file created under data/articles/ with slug derived from the title",
+        "New author file created at data/people/dr-ananya-mehta.mdx (or similar slug)",
+        "Author file contains name, avatar, occupation, company, isAuthor: true, isBoardMember: false fields",
+        "Author file contains a short bio paragraph",
+        "Article frontmatter author field matches the new author's slug",
+        "Article tags include quad, technology, indo-pacific",
+        "images field references article15",
+        "draft is false",
+        "File ends with the standard disclaimer line"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need to publish this article: title is 'Pakistan's Grey-Zone Warfare and India's Response Options'. Author: Manish Kumar Singh. Tags: pakistan, security, counter-terrorism. Summary: Pakistan's military establishment has refined grey-zone tactics — from hybrid proxies to information operations — to exert pressure on India below the threshold of conventional war. This analysis surveys the toolkit and proposes a calibrated Indian response framework. Image: article14. Body: placeholder.",
+      "expected_output": "Creates data/articles/pakistan-s-grey-zone-warfare-and-india-s-response-options.mdx with correct frontmatter, manish-kumar-singh as author, correct tags, article14 image, draft false, disclaimer at the bottom. Commit prepared.",
+      "files": [],
+      "expectations": [
+        "MDX file created under data/articles/ with kebab-case slug",
+        "author is 'manish-kumar-singh' (existing author, no new people file created)",
+        "tags array contains pakistan, security, counter-terrorism",
+        "images field references article14",
+        "draft is false",
+        "Frontmatter uses single-quoted values",
+        "File ends with the standard disclaimer line",
+        "No spurious extra files created"
+      ]
+    }
+  ]
+}
