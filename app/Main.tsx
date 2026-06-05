@@ -20,8 +20,8 @@ export default function Home({ posts }) {
             Calibrating Power. Interpreting Strategy
           </h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-300">
-            In-depth research and strategic analysis on geopolitics, statecraft,
-                            and international relations.
+            In-depth research and strategic analysis on geopolitics, statecraft, and international
+            relations.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button href="/articles" variant="primary">
