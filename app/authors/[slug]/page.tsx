@@ -57,16 +57,16 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
         )}
 
         <h2 className="text-navy dark:text-gold mb-6 text-2xl font-bold">
-          Articles by {author.name}
+          Commentaries by {author.name}
         </h2>
 
         {articles.length === 0 ? (
-          <p className="text-gray-500">No articles published yet.</p>
+          <p className="text-gray-500">No commentaries published yet.</p>
         ) : (
           <ul className="divide-y divide-gray-200 dark:divide-gray-700">
             {articles.map((post) => (
               <li key={post.slug} className="py-6">
-                <Link href={`/articles/${post.slug}`} className="group block">
+                <Link href={`/commentaries/${post.slug}`} className="group block">
                   <p className="text-gold mb-1 text-xs font-semibold tracking-widest uppercase">
                     {new Date(post.date).toLocaleDateString('en-GB', {
                       day: 'numeric',

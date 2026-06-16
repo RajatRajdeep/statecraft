@@ -14,6 +14,7 @@ export const writeForUsData = {
     'File Format: Submissions must be sent exclusively as Microsoft Word (.doc or .docx files.',
     'Provide context, historical background, and factual grounding, while also offering analysis of current developments and a forward-looking perspective.',
     'The indicative length is 800 words. Exceptions may be considered in consultation with the Web Editor.',
+    'When submitting the final draft, authors must also provide a 40-word summary of the commentary.',
     'This distinguishes TSI commentaries from standard newspaper op-eds.',
   ],
   editorialProcess:

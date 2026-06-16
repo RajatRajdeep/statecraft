@@ -3,7 +3,7 @@ import Link from '@/components/Link'
 import Button from '@/components/Button'
 import journalData from '@/data/journalData'
 
-export const metadata = genPageMetadata({ title: 'NITIVYUH Journal' })
+export const metadata = genPageMetadata({ title: 'NEETIVIYUH Journal' })
 
 export default function JournalPage() {
   return (

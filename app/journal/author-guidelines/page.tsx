@@ -1,7 +1,7 @@
 import { genPageMetadata } from 'app/seo'
 import journalData from '@/data/journalData'
 
-export const metadata = genPageMetadata({ title: 'Author Guidelines - NITIVYUH' })
+export const metadata = genPageMetadata({ title: 'Author Guidelines - NEETIVIYUH' })
 
 export default function AuthorGuidelinesPage() {
   const { authorGuidelines, name, submissionEmail } = journalData

@@ -6,7 +6,7 @@ import { genPageMetadata } from 'app/seo'
 
 export const metadata = genPageMetadata({
   title: 'Tags',
-  description: 'Articles published by The Statecraft Institute',
+  description: 'Commentaries published by The Statecraft Institute',
 })
 
 export default async function Page() {

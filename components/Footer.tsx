@@ -26,13 +26,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/articles" className="hover:text-gold transition-colors">
-                  Articles
+                <Link href="/commentaries" className="hover:text-gold transition-colors">
+                  Commentaries
                 </Link>
               </li>
               <li>
                 <Link href="/journal" className="hover:text-gold transition-colors">
-                  NITIVYUH Journal
+                  NEETIVIYUH Journal
                 </Link>
               </li>
               <li>
@@ -57,11 +57,20 @@ export default function Footer() {
             >
               {siteMetadata.email}
             </a>
-            {/* <div className="mt-4 flex space-x-3">
-              <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} size={5} />
-              <SocialIcon kind="linkedin" href={siteMetadata.linkedin} size={5} />
-              <SocialIcon kind="x" href={siteMetadata.x} size={5} />
-            </div> */}
+            <div className="mt-4 flex space-x-3">
+              <SocialIcon
+                kind="linkedin"
+                href={siteMetadata.linkedin}
+                size={7}
+                iconClassName="fill-current text-gray-300 hover:text-gold transition-colors"
+              />
+              <SocialIcon
+                kind="x"
+                href={siteMetadata.x}
+                size={7}
+                iconClassName="fill-current text-gray-300 hover:text-gold transition-colors"
+              />
+            </div>
           </div>
         </div>
         <div className="border-gold/20 mt-8 border-t pt-6 text-center text-xs text-gray-400">
