@@ -24,22 +24,22 @@ export default function Home({ posts }) {
             relations.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button href="/articles" variant="primary">
-              Read Articles
+            <Button href="/commentaries" variant="primary">
+              Read Commentaries
             </Button>
-            <Button href="/journal" variant="outline">
-              NITIVYUH Journal
+            <Button href="/write-for-us" variant="outline">
+              Write For Us
             </Button>
           </div>
         </div>
       </div>
 
-      {/* Latest Articles — full viewport width */}
+      {/* Latest Commentaries — full viewport width */}
       <div className="full-bleed px-4 py-12 sm:px-8 lg:px-16 xl:px-24">
         <div className="mx-auto max-w-screen-2xl">
           <div className="mb-8">
             <h2 className="text-navy border-gold inline-block border-b-2 pb-2 text-2xl font-bold dark:text-gray-100">
-              Latest Articles
+              Latest Commentaries
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -70,7 +70,7 @@ export default function Home({ posts }) {
                     </div>
                     <h3 className="mb-2 text-lg leading-snug font-bold">
                       <Link
-                        href={`/articles/${slug}`}
+                        href={`/commentaries/${slug}`}
                         className="text-navy hover:text-gold transition-colors dark:text-gray-100"
                       >
                         {title}
@@ -84,7 +84,7 @@ export default function Home({ posts }) {
                         {formatDate(date)}
                       </time>
                       <Link
-                        href={`/articles/${slug}`}
+                        href={`/commentaries/${slug}`}
                         className="text-gold text-xs font-semibold hover:underline"
                       >
                         Read more →
@@ -97,8 +97,8 @@ export default function Home({ posts }) {
           </div>
           {posts.length > MAX_DISPLAY && (
             <div className="mt-8 text-center">
-              <Button href="/articles" variant="secondary">
-                View All Articles →
+              <Button href="/commentaries" variant="secondary">
+                View All Commentaries →
               </Button>
             </div>
           )}

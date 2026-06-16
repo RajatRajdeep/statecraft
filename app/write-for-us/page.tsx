@@ -64,7 +64,7 @@ export default function WriteForUsPage() {
           variant="primary"
           size="lg"
         >
-          Submit Your Article
+          Submit Your Commentary
         </Button>
       </div>
     </div>

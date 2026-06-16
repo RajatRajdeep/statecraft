@@ -12,16 +12,16 @@ const contactPoints = [
     note: null,
   },
   {
-    label: 'Article Submissions',
+    label: 'Commentary Submissions',
     email: siteMetadata.email,
     subject: 'Commentary Submission',
     note: 'Subject: Commentary Submission – [Title]',
   },
   {
-    label: 'NITIVYUH Journal',
+    label: 'NEETIVIYUH Journal',
     email: siteMetadata.email,
-    subject: 'NITIVYUH Submission',
-    note: 'Subject: NITIVYUH Submission – [Title]',
+    subject: 'NEETIVIYUH Submission',
+    note: 'Subject: NEETIVIYUH Submission – [Title]',
   },
 ]
 

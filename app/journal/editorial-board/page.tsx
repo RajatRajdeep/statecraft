@@ -120,12 +120,12 @@ export default function BoardPage() {
       <div className="full-bleed bg-navy mb-12 px-4 py-16 text-white sm:px-8 lg:px-16">
         <div className="mx-auto">
           <p className="text-gold mb-3 text-sm font-semibold tracking-widest uppercase">
-            NITIVYUH Quarterly Journal
+            NEETIVIYUH Quarterly Journal
           </p>
           <h1 className="text-4xl font-bold md:text-5xl">Editorial Board</h1>
           <p className="mt-4 text-lg text-gray-300">
             The scholars and practitioners who guide the editorial direction and intellectual
-            standards of NITIVYUH.
+            standards of NEETIVIYUH.
           </p>
         </div>
       </div>

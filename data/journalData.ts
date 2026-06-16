@@ -1,5 +1,5 @@
 export const journalData = {
-  name: 'NITIVYUH',
+  name: 'NEETIVIYUH',
   subtitle: 'Quarterly Journal of History, Society and Politics',
   publisher: 'The Statecraft Institute',
   frequency: 'Quarterly',
@@ -7,11 +7,11 @@ export const journalData = {
   format: 'Online & Print',
   submissionEmail: 'thestatecraft@rediffmail.com',
   description:
-    'NITIVYUH is the flagship quarterly journal of The Statecraft Institute. It publishes peer-reviewed scholarly articles and in-depth essays at the intersection of history, political thought, and contemporary international affairs.',
+    'NEETIVIYUH is the flagship quarterly journal of The Statecraft Institute. It publishes peer-reviewed scholarly articles and in-depth essays at the intersection of history, political thought, and contemporary international affairs.',
   mission:
-    'The journal was established in the conviction that rigorous historical and political scholarship must inform the strategic and policy debates of our time. NITIVYUH provides a platform for original research that transcends disciplinary boundaries — combining the depth of historical scholarship with the urgency of contemporary policy analysis.',
+    'The journal was established in the conviction that rigorous historical and political scholarship must inform the strategic and policy debates of our time. NEETIVIYUH provides a platform for original research that transcends disciplinary boundaries — combining the depth of historical scholarship with the urgency of contemporary policy analysis.',
   editorialStandards:
-    'All submissions to NITIVYUH undergo a double-blind peer review process conducted by subject-matter experts. The editorial board maintains strict standards of academic rigour, originality, and relevance. We are committed to publishing work that advances knowledge while remaining accessible to both academic and policy audiences.',
+    'All submissions to NEETIVIYUH undergo a double-blind peer review process conducted by subject-matter experts. The editorial board maintains strict standards of academic rigour, originality, and relevance. We are committed to publishing work that advances knowledge while remaining accessible to both academic and policy audiences.',
   subjectAreas: [
     'Comparative Politics and Governance',
     'Sociology and Social History',
