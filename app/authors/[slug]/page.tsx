@@ -23,7 +23,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
   const author = allPeople.find((p) => p.slug === slug && p.isAuthor)
   if (!author) return notFound()
 
-  const articles = allCoreContent(
+  const commentaries = allCoreContent(
     sortPosts(allBlogs.filter((post) => post.authors?.includes(slug) && !post.draft))
   )
 
@@ -60,11 +60,11 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
           Commentaries by {author.name}
         </h2>
 
-        {articles.length === 0 ? (
+        {commentaries.length === 0 ? (
           <p className="text-gray-500">No commentaries published yet.</p>
         ) : (
           <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-            {articles.map((post) => (
+            {commentaries.map((post) => (
               <li key={post.slug} className="py-6">
                 <Link href={`/commentaries/${post.slug}`} className="group block">
                   <p className="text-gold mb-1 text-xs font-semibold tracking-widest uppercase">

@@ -1,4 +1,4 @@
-# How to Add a New Article
+# How to Add a New Commentary
 
 No coding required. Everything is done through the browser.
 
@@ -14,7 +14,7 @@ No coding required. Everything is done through the browser.
 
 ---
 
-## Step 2 — Upload your article image
+## Step 2 — Upload your commentary image
 
 1. In the left sidebar, open the folder **`public/static/images/articles/`**
 2. Check the existing image files — they are named `article1.jpg`, `article2.jpeg`, etc.
@@ -25,22 +25,22 @@ No coding required. Everything is done through the browser.
 
 ---
 
-## Step 3 — Create the article file
+## Step 3 — Create the commentary file
 
-1. In the left sidebar, open the folder **`data/articles/`**
-2. Right-click on the `articles` folder → **New File...**
+1. In the left sidebar, open the folder **`data/commentaries/`**
+2. Right-click on the `commentaries` folder → **New File...**
 3. Name the file using **lowercase letters and hyphens only**, ending in `.mdx`
-   - This filename becomes the article's URL on the live site
-   - Example: `india-foreign-policy-2026.mdx` → URL will be `.../articles/india-foreign-policy-2026`
+   - This filename becomes the commentary's URL on the live site
+   - Example: `india-foreign-policy-2026.mdx` → URL will be `.../commentaries/india-foreign-policy-2026`
 4. The file opens in the editor. Paste the following at the very top:
 
 ```
 ---
-title: "Your Full Article Title"
+title: "Your Full Commentary Title"
 date: "2026-05-22"
 tags: ["indo-pacific", "foreign-policy"]
 draft: false
-summary: "One or two sentences describing the article. This appears in the article list."
+summary: "One or two sentences describing the commentary. This appears in the commentary list."
 images: ["/static/images/articles/article5.jpg"]
 authors: ["author-slug-here"]
 ---
@@ -51,7 +51,7 @@ authors: ["author-slug-here"]
 
 ---
 
-Write your article content here.
+Write your commentary content here.
 
 ## First Section Heading
 
@@ -64,11 +64,11 @@ Your paragraph here.
 
 | Field     | What to put                                                                          |
 | --------- | ------------------------------------------------------------------------------------ |
-| `title`   | The full article title, inside single quotes                                         |
+| `title`   | The full commentary title, inside single quotes                                      |
 | `date`    | Today's date in `YYYY-MM-DD` format                                                  |
 | `tags`    | 1–3 topic tags, **lowercase with hyphens** e.g. `'indo-pacific'`, `'foreign-policy'` |
 | `draft`   | Always `false` to publish, `true` to hide                                            |
-| `summary` | 2-3 sentence description shown in the article list                                   |
+| `summary` | 2-3 sentence description shown in the commentary list                                |
 | `images`  | Path to your uploaded image e.g. `'/static/images/articles/article5.jpg'`            |
 | `authors` | The author's slug (see list below)                                                   |
 
@@ -81,7 +81,7 @@ Your paragraph here.
 | Manish Kumar Singh | `manish-kumar-singh` |
 | Prakash Jangid     | `prakash-jangid`     |
 
-### Formatting your article
+### Formatting your commentary
 
 Use plain text with these simple markers:
 
@@ -131,7 +131,7 @@ A short 2–3 sentence bio.
 1. Click the **Source Control icon** in the left sidebar (looks like a branching line, third icon from top)
 2. You will see all changed files listed under **Changes**
 3. Type a short message in the box at the top describing what you added
-   - Format: `add article: <short title>` e.g. `add article: india foreign policy 2026`
+   - Format: `add commentary: <short title>` e.g. `add commentary: india foreign policy 2026`
 4. Click **Commit & Push**
 
 That's it. All files are published in one single commit and the site will update automatically within a few minutes.
@@ -146,4 +146,4 @@ When you click **Commit & Push**, GitHub automatically triggers a build and depl
 - Once done, the live site updates automatically
 - To check progress: go back to `github.com/...` (the normal repo page) and click the **Actions** tab at the top — a green checkmark means it's live, a spinning circle means it's still building
 
-> **If the build fails (red cross):** This usually means there is a formatting error in the article file — a missing quote, a wrong field name, or incorrect indentation in the top section. Click the failed action to see the error, fix the file in the editor, and commit again. Use https://markdownlivepreview.dev to check your content before committing.
+> **If the build fails (red cross):** This usually means there is a formatting error in the commentary file — a missing quote, a wrong field name, or incorrect indentation in the top section. Click the failed action to see the error, fix the file in the editor, and commit again. Use https://markdownlivepreview.dev to check your content before committing.

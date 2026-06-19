@@ -21,7 +21,7 @@ This is **The Statecraft Institute** — a think-tank site built on the [Tailwin
 
 Content is defined in `contentlayer.config.ts` and lives under `data/`. Two document types:
 
-- **Articles** (`data/articles/**/*.mdx`) — articles published at `/articles/[slug]`. Required frontmatter: `title`, `date`. Optional: `tags`, `draft`, `summary`, `images`, `authors`, `layout`.
+- **Commentaries** (`data/commentaries/**/*.mdx`) — commentaries published at `/commentaries/[slug]`. Required frontmatter: `title`, `date`. Optional: `tags`, `draft`, `summary`, `images`, `authors`, `layout`.
 - **People** (`data/people/**/*.mdx`) — author and board member profiles. Key flags: `isAuthor`, `isBoardMember`, `boardSection` (`editorial` | `advisory`), `boardOrder`.
 
 On build success, Contentlayer writes:
@@ -38,11 +38,12 @@ Pages pull structured content from TypeScript files in `data/`:
 ### App routes
 
 Next.js 15 App Router. Key routes:
-- `/` → `app/page.tsx` + `app/Main.tsx` — hero + latest 6 articles grid
-- `/articles` — article listing with tag sidebar (`ListLayoutWithTags`)
-- `/articles/[...slug]` — article detail page
+- `/` → `app/page.tsx` + `app/Main.tsx` — hero + latest 6 commentaries grid
+- `/commentaries` — commentary listing with tag sidebar (`ListLayoutWithTags`)
+- `/commentaries/[...slug]` — commentary detail page
+- `/commentaries/page/[page]` — paginated listing
 - `/about`, `/contact`, `/write-for-us` — static pages driven by `data/*.ts` files
-- `/journal`, `/journal/author-guidelines`, `/journal/editorial-board` — journal section
+- `/journal`, `/journal/author-guidelines`, `/journal/editorial-board` — NEETIVIYUH journal section
 - `/team` — team page (currently commented out of nav in `headerNavLinks.ts`)
 - `/_experts` — private experts page (underscore prefix; not linked in nav)
 - `/tags/[tag]` — auto-generated tag pages
@@ -54,6 +55,14 @@ Brand colors are defined as CSS custom properties in `css/tailwind.css` and used
 - `text-gold` / `border-gold` — `#c9a227` (gold)
 
 The `.full-bleed` utility class extends a section edge-to-edge (100vw) regardless of the page container, used for hero banners and section headers.
+
+### Social links
+
+`data/siteMetadata.js` has active entries for:
+- `x` — `https://x.com/TSI_India_`
+- `linkedin` — `https://www.linkedin.com/company/the-statecraft-institute-india/`
+
+These are rendered in the Footer via `SocialIcon`. The `SocialIcon` component (`components/social-icons/index.tsx`) accepts an optional `iconClassName` prop to override the default icon color/hover styles.
 
 ### Images
 
