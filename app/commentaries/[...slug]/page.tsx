@@ -13,6 +13,8 @@ import PostBanner from '@/layouts/PostBanner'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
+import { existsSync } from 'fs'
+import path from 'path'
 
 const defaultLayout = 'PostLayout'
 const layouts = {
@@ -45,7 +47,7 @@ export async function generateMetadata(props: {
   }
   const ogImages = imageList.map((img) => {
     return {
-      url: img && img.includes('http') ? img : siteMetadata.siteUrl + img,
+      url: img && img.includes('http') ? img : siteMetadata.siteUrl.replace(/\/$/, '') + img,
     }
   })
 
@@ -106,13 +108,32 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
 
   const Layout = layouts[post.layout || defaultLayout]
 
+  // If an audio recording exists for this commentary
+  // (public/static/audio/commentaries/<slug>.mp3), expose its served URL so the
+  // layout can render a "Listen" control.
+  const audioFile = path.join(
+    process.cwd(),
+    'public',
+    'static',
+    'audio',
+    'commentaries',
+    `${slug}.mp3`
+  )
+  const audioSrc = existsSync(audioFile) ? `/static/audio/commentaries/${slug}.mp3` : undefined
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Layout content={mainContent} authorDetails={authorDetails} next={next} prev={prev}>
+      <Layout
+        content={mainContent}
+        authorDetails={authorDetails}
+        next={next}
+        prev={prev}
+        audioSrc={audioSrc}
+      >
         <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
       </Layout>
     </>

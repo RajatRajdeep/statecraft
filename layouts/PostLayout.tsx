@@ -9,6 +9,8 @@ import Image from '@/components/Image'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import ShareButton from '@/components/ShareButton'
+import AudioPlayer from '@/components/AudioPlayer'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -26,10 +28,18 @@ interface LayoutProps {
   authorDetails: CoreContent<People>[]
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
+  audioSrc?: string
   children: ReactNode
 }
 
-export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
+export default function PostLayout({
+  content,
+  authorDetails,
+  next,
+  prev,
+  audioSrc,
+  children,
+}: LayoutProps) {
   const { filePath, path, slug, date, title, tags } = content
   const basePath = path.split('/')[0]
 
@@ -37,20 +47,24 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
     <SectionContainer>
       <ScrollTopAndComment />
       <article>
-        <div className="px-4 sm:px-6 lg:px-8 xl:divide-y xl:divide-gray-200 xl:px-12 xl:dark:divide-gray-700">
-          <header className="pt-12 xl:pt-16 xl:pb-6">
+        <div className="px-4 sm:px-6 lg:px-8 xl:px-12">
+          <header className="pt-12 xl:pt-16 xl:pb-2">
             <div className="space-y-1 text-center">
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
+              <div className="mt-5 hidden items-center justify-end gap-2 xl:flex">
+                {audioSrc && <AudioPlayer src={audioSrc} label="Listen" />}
+                <ShareButton />
+              </div>
             </div>
           </header>
-          <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
-            <dl className="border-b border-gray-200 pt-6 pb-10 xl:pt-11 dark:border-gray-700">
+          <div className="grid-rows-[auto_1fr] pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6">
+            <dl className="border-gray-200 pt-6 pb-5 xl:border-b xl:pt-11 dark:border-gray-700">
               <dt className="mb-2 text-right text-xs font-medium tracking-wide text-gray-500 uppercase xl:text-left dark:text-gray-400">
                 {authorDetails.length > 1 ? 'Authors' : 'Author'}
               </dt>
-              <dd>
+              <dd className="ml-auto w-fit border-b border-gray-200 pb-6 xl:ml-0 xl:w-auto xl:border-0 xl:pb-0 dark:border-gray-700">
                 <ul className="flex flex-wrap justify-end gap-4 xl:block xl:space-y-8 xl:space-x-0">
                   {authorDetails.map((author, index) => (
                     <li key={author.slug ?? index}>
@@ -107,17 +121,24 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   ))}
                 </ul>
               </dd>
-              <div className="mt-6 border-t border-gray-200 pt-6 dark:border-gray-700">
+              <div className="mt-6 xl:pt-6">
                 <dt className="text-right text-xs font-medium tracking-wide text-gray-500 uppercase xl:text-left dark:text-gray-400">
                   Published on
                 </dt>
-                <dd className="mt-1 text-right text-sm leading-6 text-gray-500 xl:text-left dark:text-gray-400">
+                <dd className="mt-1 ml-auto w-fit border-b border-gray-200 pb-3 text-right text-sm leading-6 text-gray-500 xl:ml-0 xl:w-auto xl:border-0 xl:pb-0 xl:text-left dark:border-gray-700 dark:text-gray-400">
                   <time dateTime={date}>
                     {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                   </time>
                 </dd>
               </div>
             </dl>
+            {/* Mobile: Listen / Share after Published On */}
+            <div className="pt-2 xl:hidden">
+              <div className="flex items-center justify-end gap-2">
+                {audioSrc && <AudioPlayer src={audioSrc} label="Listen" />}
+                <ShareButton />
+              </div>
+            </div>
             <div className="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
               <div className="prose dark:prose-invert max-w-none pt-10 pb-8 text-justify">
                 {children}
@@ -138,10 +159,10 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </div>
               )} */}
             </div>
-            <footer>
+            <footer className="border-t border-gray-200 xl:border-t-0 dark:border-gray-700">
               <div className="divide-gray-200 text-sm leading-5 font-medium xl:col-start-1 xl:row-start-2 xl:divide-y dark:divide-gray-700">
                 {tags && (
-                  <div className="py-4 xl:py-8">
+                  <div className="py-4 xl:py-5">
                     <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
                       Tags
                     </h2>
@@ -153,7 +174,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   </div>
                 )}
                 {(next || prev) && (
-                  <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
+                  <div className="flex justify-between py-4 xl:block xl:space-y-5 xl:py-5">
                     {prev && prev.path && (
                       <div>
                         <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
@@ -177,7 +198,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                   </div>
                 )}
               </div>
-              <div className="pt-4 xl:pt-8">
+              <div className="pt-4 xl:pt-5">
                 <Link
                   href={`/${basePath}`}
                   className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
