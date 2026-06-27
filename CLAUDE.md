@@ -9,9 +9,16 @@ yarn dev        # Start dev server at localhost:3000
 yarn build      # Production build (also runs postbuild script for sitemap/search index)
 yarn serve      # Serve the production build
 yarn lint       # ESLint with auto-fix across app/, components/, layouts/, scripts/
+
+# Process confirmed Google Sheet submissions locally (requires .env)
+uv run --project scripts/ python scripts/process_submissions.py
 ```
 
 No test suite is configured. There is no single-test command.
+
+### Submission automation
+
+Editors mark a **Confirmed** checkbox on the Google Sheet that collects form submissions. The script `scripts/process_submissions.py` reads all confirmed, unprocessed rows, downloads the commentary `.docx` from Drive, converts it to Markdown via pandoc, creates author MDX profiles for new authors, writes the commentary MDX, and opens a GitHub PR targeting `main`. It can be triggered locally (via the command above) or via the [Process Commentary Submissions](.github/workflows/process-submissions.yml) workflow from the Actions tab. Credentials for local runs live in `.env` (gitignored). GitHub Actions reads `GOOGLE_SERVICE_ACCOUNT_KEY` and `GOOGLE_SHEET_ID` from repository secrets.
 
 ## Architecture
 

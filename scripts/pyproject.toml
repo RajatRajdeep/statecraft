@@ -1,0 +1,12 @@
+[project]
+name = "statecraft"
+version = "0.1.0"
+description = "Commentary submission processor for The Statecraft Institute"
+requires-python = ">=3.13"
+dependencies = [
+    "gspread>=6.0",
+    "google-auth>=2.0",
+    "google-api-python-client>=2.0",
+    "PyGithub>=2.0",
+    "python-slugify>=8.0",
+]
