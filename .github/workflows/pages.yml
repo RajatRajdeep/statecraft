@@ -4,6 +4,11 @@ name: GitHub Pages
 on:
   push:
     branches: main
+    paths-ignore:
+      - 'scripts/**'
+      - '.github/workflows/process-submissions.yml'
+      - '**.md'
+      - 'LICENSE'
   workflow_dispatch:
 
 permissions:
