@@ -443,7 +443,7 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
 
     # ── Commit and push ─────────────────────────────────────────────────────
     git("commit", "-m", f"add commentary: {title[:72]}")
-    git("push", "origin", branch)
+    git("push", "--force", "origin", branch)
 
     # ── Open PR ─────────────────────────────────────────────────────────────
     new_author = "New author" in author_status
@@ -571,6 +571,28 @@ def main() -> None:
 
     if not results:
         print("  No confirmed, unprocessed rows found.")
+
+    write_step_summary(results)
+
+
+def write_step_summary(results: list[tuple[str, bool, str]]) -> None:
+    """Render the run summary on the GitHub Actions Summary page (if running in CI)."""
+    summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not summary_path:
+        return
+
+    lines = ["## Process Commentary Submissions", ""]
+    if not results:
+        lines.append("**No confirmed, unprocessed rows found.**")
+    else:
+        lines.append("| | Title | Result |")
+        lines.append("| --- | --- | --- |")
+        for title, ok, summary in results:
+            mark = "✅" if ok else "❌"
+            lines.append(f"| {mark} | {title} | {summary} |")
+
+    with open(summary_path, "a", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
 
 
 if __name__ == "__main__":
