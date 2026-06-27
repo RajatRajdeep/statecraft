@@ -52,15 +52,15 @@ function MemberCard({
           <Initials name={person.name} />
         )}
       </div>
-      <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-navy text-base font-bold dark:text-white">{person.name}</h3>
+      <div className="flex flex-1 flex-col p-4">
+        <h3 className="text-navy text-sm font-bold dark:text-white">{person.name}</h3>
         {showRole && (
-          <p className="text-gold mt-0.5 mb-2 text-sm font-semibold">{person.boardRole}</p>
+          <p className="text-gold mt-0.5 mb-2 text-xs font-semibold">{person.boardRole}</p>
         )}
-        <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+        <p className="text-xs leading-relaxed text-gray-600 dark:text-gray-400">
           {person.occupation}
         </p>
-        <p className="mt-1 text-sm leading-relaxed text-gray-500 dark:text-gray-500">
+        <p className="mt-1 text-xs leading-relaxed text-gray-500 dark:text-gray-500">
           {person.company}
         </p>
         {showLink && person.profileUrl && (
@@ -68,7 +68,7 @@ function MemberCard({
             href={person.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gold hover:text-gold/70 mt-6 self-start text-sm font-semibold transition-colors"
+            className="text-gold hover:text-gold/70 mt-4 self-start text-xs font-semibold transition-colors"
           >
             View Profile →
           </a>
@@ -76,7 +76,7 @@ function MemberCard({
         {showLink && person.isAuthor && !person.profileUrl && (
           <Link
             href={`/authors/${person.slug}`}
-            className="text-gold hover:text-gold/70 mt-6 self-start text-sm font-semibold transition-colors"
+            className="text-gold hover:text-gold/70 mt-4 self-start text-xs font-semibold transition-colors"
           >
             View Profile →
           </Link>
@@ -105,7 +105,7 @@ function BoardSection({
         <h2 className="text-navy text-2xl font-bold dark:text-white">{title}</h2>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{subtitle}</p>
       </div>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {members.map((person) => (
           <MemberCard key={person.slug} person={person} showLink={showLinks} showRole={showRoles} />
         ))}
