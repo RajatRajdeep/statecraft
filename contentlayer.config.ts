@@ -147,7 +147,7 @@ export const People = defineDocumentType(() => ({
     profileUrl: { type: 'string' },
     isAuthor: { type: 'boolean', default: false },
     isBoardMember: { type: 'boolean', default: false },
-    isExpert: { type: 'boolean', default: false },
+    isExpertContributor: { type: 'boolean', default: false },
     boardRole: { type: 'string' },
     boardSection: { type: 'enum', options: ['editorial', 'advisory'] },
     boardOrder: { type: 'number' },

@@ -3,9 +3,11 @@ import { allPeople } from 'contentlayer/generated'
 import Image from '@/components/Image'
 import Link from '@/components/Link'
 
-export const metadata = genPageMetadata({ title: 'Experts' })
+export const metadata = genPageMetadata({ title: 'Expert Contributors' })
 
-const experts = allPeople.filter((p) => p.isExpert).sort((a, b) => a.name.localeCompare(b.name))
+const expertContributors = allPeople
+  .filter((p) => p.isExpertContributor)
+  .sort((a, b) => a.name.localeCompare(b.name))
 
 function Initials({ name }: { name: string }) {
   const initials = name
@@ -22,7 +24,7 @@ function Initials({ name }: { name: string }) {
   )
 }
 
-function ExpertCard({ person }: { person: (typeof allPeople)[number] }) {
+function ContributorCard({ person }: { person: (typeof allPeople)[number] }) {
   return (
     <div className="flex flex-col overflow-hidden rounded-lg border border-gray-200 transition-shadow hover:shadow-lg dark:border-gray-700">
       <div className="aspect-square overflow-hidden bg-gray-100 dark:bg-gray-800">
@@ -38,12 +40,12 @@ function ExpertCard({ person }: { person: (typeof allPeople)[number] }) {
           <Initials name={person.name} />
         )}
       </div>
-      <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-navy text-base font-bold dark:text-white">{person.name}</h3>
-        <p className="mt-0.5 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+      <div className="flex flex-1 flex-col p-4">
+        <h3 className="text-navy text-sm font-bold dark:text-white">{person.name}</h3>
+        <p className="mt-0.5 text-xs leading-relaxed text-gray-600 dark:text-gray-400">
           {person.occupation}
         </p>
-        <p className="mt-1 text-sm leading-relaxed text-gray-500 dark:text-gray-500">
+        <p className="mt-1 text-xs leading-relaxed text-gray-500 dark:text-gray-500">
           {person.company}
         </p>
         {person.profileUrl ? (
@@ -51,14 +53,14 @@ function ExpertCard({ person }: { person: (typeof allPeople)[number] }) {
             href={person.profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gold hover:text-gold/70 mt-6 self-start text-sm font-semibold transition-colors"
+            className="text-gold hover:text-gold/70 mt-4 self-start text-xs font-semibold transition-colors"
           >
             View Profile →
           </a>
         ) : person.isAuthor ? (
           <Link
             href={`/authors/${person.slug}`}
-            className="text-gold hover:text-gold/70 mt-6 self-start text-sm font-semibold transition-colors"
+            className="text-gold hover:text-gold/70 mt-4 self-start text-xs font-semibold transition-colors"
           >
             View Profile →
           </Link>
@@ -68,29 +70,25 @@ function ExpertCard({ person }: { person: (typeof allPeople)[number] }) {
   )
 }
 
-export default function ExpertsPage() {
+export default function ExpertContributorsPage() {
   return (
     <div className="w-full">
       <div className="full-bleed bg-navy mb-12 px-4 py-16 text-white sm:px-8 lg:px-16">
         <div className="mx-auto">
-          <p className="text-gold mb-3 text-sm font-semibold tracking-widest uppercase">
-            The Statecraft Institute
-          </p>
-          <h1 className="text-4xl font-bold md:text-5xl">Our Experts</h1>
+          <h1 className="text-4xl font-bold md:text-5xl">Expert Contributors</h1>
           <p className="mt-4 text-lg text-gray-300">
-            Distinguished scholars and practitioners whose expertise informs our research and
-            analysis.
+            Scholars and practitioners who share their expertise.
           </p>
         </div>
       </div>
 
       <div className="px-4 pb-16 sm:px-8 lg:px-16">
-        {experts.length === 0 ? (
-          <p className="text-gray-500">No experts listed yet.</p>
+        {expertContributors.length === 0 ? (
+          <p className="text-gray-500">No expert contributors listed yet.</p>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {experts.map((person) => (
-              <ExpertCard key={person.slug} person={person} />
+          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {expertContributors.map((person) => (
+              <ContributorCard key={person.slug} person={person} />
             ))}
           </div>
         )}
