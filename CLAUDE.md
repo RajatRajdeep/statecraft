@@ -73,7 +73,7 @@ These are rendered in the Footer via `SocialIcon`. The `SocialIcon` component (`
 
 ### Images
 
-Article images live in `public/static/images/articles/` and follow sequential naming: `article1.jpg`, `article2.jpeg`, …, `articleN.jpg`. Always use the next available number when adding a new article. Author photos go in `public/static/images/people/<firstname-lastname>.jpg`.
+Commentary images live in `public/static/images/commentaries/` and are named after the commentary's URL slug — i.e. the same basename as the commentary's MDX file, keeping the source extension (e.g. `india-sagar-to-mahasagar-maritime-doctrine.jpg` for `data/commentaries/india-sagar-to-mahasagar-maritime-doctrine.mdx`). Author photos go in `public/static/images/people/<firstname-lastname>.jpg`.
 
 ### Deployment
 

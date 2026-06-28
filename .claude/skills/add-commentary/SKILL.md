@@ -14,8 +14,9 @@ Publishing a new article means creating an MDX file under `data/articles/` with 
 
 Before writing any files, collect everything needed. Run these two reads in parallel:
 
-- List `public/static/images/articles/` to find the highest-numbered image file (e.g. `article13.jpg` → next slot is **14**). Tell the user: "The next image should be named `article14.jpg` (or `.jpeg`). Please upload it to `public/static/images/articles/` before we commit."
 - List `data/people/` to get all existing author slugs (the filenames without `.mdx`).
+
+The commentary image is named after the article's slug (derived in Step 2), so there's no number to look up here — once the slug is set, tell the user: "Please upload the image to `public/static/images/commentaries/<slug>.jpg` (or `.jpeg`) before we commit."
 
 Then ask the user for the article details using AskUserQuestion. Collect all of this in a **single** question call — don't make the user answer in multiple rounds. You need:
 
@@ -39,7 +40,7 @@ Better approach: strip non-alphanumeric chars first, then lowercase and hyphenat
 
 Confirm the slug and the file path (`data/articles/<slug>.mdx`) with the user in one line before writing: _"I'll create `data/articles/india-gulf-shield.mdx`. OK?"_
 
-**Image**: Use the next slot number found in Step 1. The frontmatter path will be `/static/images/articles/article<N>.jpg` (adjust extension if user uploaded `.jpeg`).
+**Image**: Name the image after the slug. The frontmatter path will be `/static/images/commentaries/<slug>.jpg` (adjust extension if user uploaded `.jpeg`).
 
 ---
 
@@ -54,7 +55,7 @@ date: '2026-05-29'
 tags: ['tag-one', 'tag-two']
 draft: false
 summary: 'Two or three sentence summary that appears in the article listing.'
-images: ['/static/images/articles/articleN.jpg']
+images: ['/static/images/commentaries/<slug>.jpg']
 authors: ['author-slug']
 ---
 
@@ -117,7 +118,7 @@ Example: `add article: india gulf shield hormuz calculus`
 Show the user the commit message before running — let them approve or tweak it.
 
 After committing, remind them:
-1. Upload the article image to `public/static/images/articles/article<N>.jpg`
+1. Upload the article image to `public/static/images/commentaries/<slug>.jpg`
 2. If a new author: upload their photo to `public/static/images/people/`
 3. Push to trigger the site rebuild: `git push`
 

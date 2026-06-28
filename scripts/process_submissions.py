@@ -42,7 +42,7 @@ if _env_file.exists():
 REPO_ROOT = Path(__file__).parent.parent
 COMMENTARIES_DIR = REPO_ROOT / "data" / "commentaries"
 PEOPLE_DIR = REPO_ROOT / "data" / "people"
-ARTICLES_IMG_DIR = REPO_ROOT / "public" / "static" / "images" / "articles"
+COMMENTARIES_IMG_DIR = REPO_ROOT / "public" / "static" / "images" / "commentaries"
 PEOPLE_IMG_DIR = REPO_ROOT / "public" / "static" / "images" / "people"
 
 # ── Constants ──────────────────────────────────────────────────────────────────
@@ -74,7 +74,7 @@ COL_BIO = "Brief bio"
 COL_PHOTO = "Profile photo"
 COL_LINKEDIN = "LinkedIn URL"
 COL_TWITTER = "X / Twitter URL"
-COL_ARTICLE_IMG = "Commentry Photo Link"
+COL_ARTICLE_IMG = "Commentary Image"
 COL_CONFIRMED = "Confirmed"
 COL_PUBLISH_DATE = "Publish Date"
 COL_PROCESSED = "Processed"
@@ -191,15 +191,6 @@ def docx_to_markdown(docx_bytes: bytes) -> str:
 
 
 # ── Next article image number ──────────────────────────────────────────────────
-
-
-def next_article_number() -> int:
-    nums = []
-    for f in ARTICLES_IMG_DIR.glob("article*"):
-        m = re.match(r"article(\d+)", f.stem)
-        if m:
-            nums.append(int(m.group(1)))
-    return max(nums, default=0) + 1
 
 
 # ── MDX builders ──────────────────────────────────────────────────────────────
@@ -345,7 +336,6 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
 
     # ── Article image ───────────────────────────────────────────────────────
     image_path = ""
-    art_num = next_article_number()
     article_img_url = col(COL_ARTICLE_IMG)
 
     if article_img_url:
@@ -365,9 +355,9 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
                     )
                 else:
                     img_bytes = download_drive_file(drive, img_id, img_meta["mimeType"])
-                    dest = ARTICLES_IMG_DIR / f"article{art_num}{img_ext}"
+                    dest = COMMENTARIES_IMG_DIR / f"{slug}{img_ext}"
                     dest.write_bytes(img_bytes)
-                    image_path = f"/static/images/articles/article{art_num}{img_ext}"
+                    image_path = f"/static/images/commentaries/{slug}{img_ext}"
                     git("add", str(dest))
             except Exception as e:
                 notes.append(f"Article image download failed: {e}")

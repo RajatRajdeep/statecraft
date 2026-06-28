@@ -16,12 +16,12 @@ No coding required. Everything is done through the browser.
 
 ## Step 2 — Upload your commentary image
 
-1. In the left sidebar, open the folder **`public/static/images/articles/`**
-2. Check the existing image files — they are named `article1.jpg`, `article2.jpeg`, etc.
-3. Right-click on the `articles` folder → **Upload...**
+1. First, decide your commentary's **URL slug** — the lowercase-hyphenated name you'll use for the commentary file in Step 3 (e.g. `india-foreign-policy-2026`). Your image must use this exact same name.
+2. In the left sidebar, open the folder **`public/static/images/commentaries/`**
+3. Right-click on the `commentaries` folder → **Upload...**
 4. Select your image file and upload it
-5. Rename it to the next number in the sequence
-   - Example: if `article4.jpeg` already exists, rename yours **`article5.jpg`**
+5. Rename it to match your commentary's slug, keeping the image extension
+   - Example: for the commentary `india-foreign-policy-2026.mdx`, name the image **`india-foreign-policy-2026.jpg`** (or `.jpeg`)
 
 ---
 
@@ -41,7 +41,7 @@ date: "2026-05-22"
 tags: ["indo-pacific", "foreign-policy"]
 draft: false
 summary: "One or two sentences describing the commentary. This appears in the commentary list."
-images: ["/static/images/articles/article5.jpg"]
+images: ["/static/images/commentaries/india-foreign-policy-2026.jpg"]
 authors: ["author-slug-here"]
 ---
 
@@ -69,7 +69,7 @@ Your paragraph here.
 | `tags`    | 1–3 topic tags, **lowercase with hyphens** e.g. `'indo-pacific'`, `'foreign-policy'` |
 | `draft`   | Always `false` to publish, `true` to hide                                            |
 | `summary` | 2-3 sentence description shown in the commentary list                                |
-| `images`  | Path to your uploaded image e.g. `'/static/images/articles/article5.jpg'`            |
+| `images`  | Path to your uploaded image, named after the slug e.g. `'/static/images/commentaries/india-foreign-policy-2026.jpg'` |
 | `authors` | The author's slug (see list below)                                                   |
 
 ### Author slugs
