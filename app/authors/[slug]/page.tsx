@@ -1,10 +1,11 @@
 import { notFound } from 'next/navigation'
-import { allPeople, allBlogs } from 'contentlayer/generated'
+import { allPeople, allPublications } from 'contentlayer/generated'
 import { coreContent, sortPosts, allCoreContent } from 'pliny/utils/contentlayer'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { components } from '@/components/MDXComponents'
 import Image from '@/components/Image'
 import Link from '@/components/Link'
+import CategoryBadge from '@/components/CategoryBadge'
 import { genPageMetadata } from 'app/seo'
 
 export async function generateStaticParams() {
@@ -24,7 +25,7 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
   if (!author) return notFound()
 
   const commentaries = allCoreContent(
-    sortPosts(allBlogs.filter((post) => post.authors?.includes(slug) && !post.draft))
+    sortPosts(allPublications.filter((post) => post.authors?.includes(slug) && !post.draft))
   )
 
   return (
@@ -57,23 +58,26 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
         )}
 
         <h2 className="text-navy dark:text-gold mb-6 text-2xl font-bold">
-          Commentaries by {author.name}
+          Publications by {author.name}
         </h2>
 
         {commentaries.length === 0 ? (
-          <p className="text-gray-500">No commentaries published yet.</p>
+          <p className="text-gray-500">No publications yet.</p>
         ) : (
           <ul className="divide-y divide-gray-200 dark:divide-gray-700">
             {commentaries.map((post) => (
               <li key={post.slug} className="py-6">
-                <Link href={`/commentaries/${post.slug}`} className="group block">
-                  <p className="text-gold mb-1 text-xs font-semibold tracking-widest uppercase">
-                    {new Date(post.date).toLocaleDateString('en-GB', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                    })}
-                  </p>
+                <Link href={`/${post.path}`} className="group block">
+                  <div className="mb-1 flex items-center gap-3">
+                    <p className="text-gold text-xs font-semibold tracking-widest uppercase">
+                      {new Date(post.date).toLocaleDateString('en-GB', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      })}
+                    </p>
+                    <CategoryBadge type={post.pubType} />
+                  </div>
                   <h3 className="group-hover:text-gold dark:group-hover:text-gold text-xl font-semibold transition-colors dark:text-white">
                     {post.title}
                   </h3>

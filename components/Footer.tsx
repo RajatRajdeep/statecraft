@@ -26,8 +26,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/commentaries" className="hover:text-gold transition-colors">
-                  Commentaries
+                <Link href="/publications" className="hover:text-gold transition-colors">
+                  Publications
                 </Link>
               </li>
               <li>

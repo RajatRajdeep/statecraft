@@ -1,4 +1,4 @@
-name: Process Commentary Submissions
+name: Process Publication Submissions
 
 on:
   workflow_dispatch:

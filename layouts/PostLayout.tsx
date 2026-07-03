@@ -1,12 +1,13 @@
 import { ReactNode } from 'react'
 import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog, People } from 'contentlayer/generated'
+import type { Publication, People } from 'contentlayer/generated'
 import Comments from '@/components/Comments'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
 import Image from '@/components/Image'
 import Tag from '@/components/Tag'
+import CategoryBadge from '@/components/CategoryBadge'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import ShareButton from '@/components/ShareButton'
@@ -24,7 +25,7 @@ const postDateTemplate: Intl.DateTimeFormatOptions = {
 }
 
 interface LayoutProps {
-  content: CoreContent<Blog>
+  content: CoreContent<Publication>
   authorDetails: CoreContent<People>[]
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
@@ -40,7 +41,7 @@ export default function PostLayout({
   audioSrc,
   children,
 }: LayoutProps) {
-  const { filePath, path, slug, date, title, tags } = content
+  const { filePath, path, slug, date, title, tags, pubType } = content
   const basePath = path.split('/')[0]
 
   return (
@@ -123,6 +124,14 @@ export default function PostLayout({
               </dd>
               <div className="mt-6 xl:pt-6">
                 <dt className="text-right text-xs font-medium tracking-wide text-gray-500 uppercase xl:text-left dark:text-gray-400">
+                  Category
+                </dt>
+                <dd className="mt-1 ml-auto w-fit border-b border-gray-200 pb-3 text-right text-sm leading-6 xl:ml-0 xl:w-auto xl:border-0 xl:pb-0 xl:text-left dark:border-gray-700">
+                  <CategoryBadge type={pubType} />
+                </dd>
+              </div>
+              <div className="mt-6 xl:pt-6">
+                <dt className="text-right text-xs font-medium tracking-wide text-gray-500 uppercase xl:text-left dark:text-gray-400">
                   Published on
                 </dt>
                 <dd className="mt-1 ml-auto w-fit border-b border-gray-200 pb-3 text-right text-sm leading-6 text-gray-500 xl:ml-0 xl:w-auto xl:border-0 xl:pb-0 xl:text-left dark:border-gray-700 dark:text-gray-400">
@@ -202,9 +211,9 @@ export default function PostLayout({
                 <Link
                   href={`/${basePath}`}
                   className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                  aria-label="Back to commentaries"
+                  aria-label="Back to publications"
                 >
-                  &larr; Back to commentaries
+                  &larr; Back to publications
                 </Link>
               </div>
             </footer>

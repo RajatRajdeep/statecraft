@@ -2,6 +2,7 @@ import Image from '@/components/Image'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import Button from '@/components/Button'
+import CategoryBadge from '@/components/CategoryBadge'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from '@/data/formatDate'
 
@@ -24,8 +25,8 @@ export default function Home({ posts }) {
             relations.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button href="/commentaries" variant="primary">
-              Read Commentaries
+            <Button href="/publications" variant="primary">
+              Read Publications
             </Button>
             <Button href="/write-for-us" variant="outline">
               Write For Us
@@ -39,13 +40,13 @@ export default function Home({ posts }) {
         <div className="mx-auto max-w-screen-2xl">
           <div className="mb-8">
             <h2 className="text-navy border-gold inline-block border-b-2 pb-2 text-2xl font-bold dark:text-gray-100">
-              Latest Commentaries
+              Latest Publications
             </h2>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {!posts.length && <p className="text-gray-500">No posts found.</p>}
             {posts.slice(0, MAX_DISPLAY).map((post) => {
-              const { slug, date, title, summary, tags, images } = post
+              const { slug, path, date, title, summary, tags, images, pubType } = post
               return (
                 <article
                   key={slug}
@@ -63,19 +64,22 @@ export default function Home({ posts }) {
                     </div>
                   )}
                   <div className="p-5">
-                    <div className="mb-2 flex flex-wrap gap-1">
-                      {tags.slice(0, 2).map((tag) => (
-                        <Tag key={tag} text={tag} />
-                      ))}
-                    </div>
+                    <CategoryBadge type={pubType} className="mb-2" />
                     <h3 className="mb-2 text-lg leading-snug font-bold">
                       <Link
-                        href={`/commentaries/${slug}`}
+                        href={`/${path}`}
                         className="text-navy hover:text-gold transition-colors dark:text-gray-100"
                       >
                         {title}
                       </Link>
                     </h3>
+                    {tags.length > 0 && (
+                      <div className="mb-2 flex flex-wrap gap-x-1 gap-y-1">
+                        {tags.slice(0, 2).map((tag) => (
+                          <Tag key={tag} text={tag} />
+                        ))}
+                      </div>
+                    )}
                     <p className="mb-3 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
                       {summary}
                     </p>
@@ -84,7 +88,7 @@ export default function Home({ posts }) {
                         {formatDate(date)}
                       </time>
                       <Link
-                        href={`/commentaries/${slug}`}
+                        href={`/${path}`}
                         className="text-gold text-xs font-semibold hover:underline"
                       >
                         Read more →
@@ -97,8 +101,8 @@ export default function Home({ posts }) {
           </div>
           {posts.length > MAX_DISPLAY && (
             <div className="mt-8 text-center">
-              <Button href="/commentaries" variant="secondary">
-                View All Commentaries →
+              <Button href="/publications" variant="secondary">
+                View All Publications →
               </Button>
             </div>
           )}

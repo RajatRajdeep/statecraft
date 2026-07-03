@@ -40,8 +40,10 @@ if _env_file.exists():
 # ── Paths ──────────────────────────────────────────────────────────────────────
 
 REPO_ROOT = Path(__file__).parent.parent
-COMMENTARIES_DIR = REPO_ROOT / "data" / "commentaries"
+PUBLICATIONS_DIR = REPO_ROOT / "data" / "publications"
 PEOPLE_DIR = REPO_ROOT / "data" / "people"
+# The image folder keeps its historical `commentaries` name (independent of the
+# content folder / URL slug) so existing `images:` frontmatter paths stay valid.
 COMMENTARIES_IMG_DIR = REPO_ROOT / "public" / "static" / "images" / "commentaries"
 PEOPLE_IMG_DIR = REPO_ROOT / "public" / "static" / "images" / "people"
 
@@ -63,6 +65,7 @@ SCOPES = [
 
 # Exact column names from the Google Sheet
 COL_TITLE = "Title"
+COL_PUBTYPE = "Publication Type"
 COL_LANG = "Language"
 COL_TAGS = "Topic / tags"
 COL_SUMMARY = "Summary"
@@ -107,6 +110,33 @@ def title_to_slug(title: str) -> str:
 
 def name_to_slug(name: str) -> str:
     return slugify(name)
+
+
+VALID_PUBTYPES = {"commentary", "book-review", "interview"}
+
+# pubType -> URL segment (matches PUBTYPE_SEGMENT in contentlayer.config.ts)
+PUBTYPE_SEGMENT = {
+    "commentary": "commentaries",
+    "book-review": "book-reviews",
+    "interview": "interviews",
+}
+
+
+def normalise_pubtype(raw: str) -> str:
+    """Map a free-text Publication Type cell to a valid pubType slug.
+
+    Accepts values like "Commentary", "Book Review", "book_review", "Interview".
+    Falls back to "commentary" when empty or unrecognised.
+    """
+    val = raw.strip().lower().replace(" ", "-").replace("_", "-")
+    val = re.sub(r"-+", "-", val).strip("-")
+    if val in VALID_PUBTYPES:
+        return val
+    if "book" in val or "review" in val:
+        return "book-review"
+    if "interview" in val:
+        return "interview"
+    return "commentary"
 
 
 def normalise_tags(raw: str) -> list:
@@ -199,6 +229,7 @@ def docx_to_markdown(docx_bytes: bytes) -> str:
 def build_commentary_mdx(
     title: str,
     publish_date: str,
+    pub_type: str,
     lang: str,
     tags: list,
     summary: str,
@@ -211,6 +242,7 @@ def build_commentary_mdx(
         f"---\n"
         f'title: "{title}"\n'
         f'date: "{publish_date}"\n'
+        f'pubType: "{pub_type}"\n'
         f'lang: "{lang}"\n'
         f"tags: {json.dumps(tags)}\n"
         f"draft: false\n"
@@ -285,9 +317,9 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
     if not slug:
         return False, f"Could not derive slug from title: {title!r}", []
 
-    commentary_path = COMMENTARIES_DIR / f"{slug}.mdx"
+    commentary_path = PUBLICATIONS_DIR / f"{slug}.mdx"
     if commentary_path.exists():
-        return False, f"Commentary already exists at `commentaries/{slug}.mdx`", []
+        return False, f"Publication already exists at `publications/{slug}.mdx`", []
 
     # ── Validate and download commentary doc ────────────────────────────────
     doc_url = col(COL_DOC)
@@ -422,10 +454,12 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
     lang = col(COL_LANG).lower() or "english"
     summary = col(COL_SUMMARY)
     publish_date = normalise_date(col(COL_PUBLISH_DATE))
+    pub_type = normalise_pubtype(col(COL_PUBTYPE))
 
     commentary_mdx = build_commentary_mdx(
         title=title,
         publish_date=publish_date,
+        pub_type=pub_type,
         lang=lang,
         tags=tags,
         summary=summary,
@@ -441,7 +475,7 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
     git("add", str(REPO_ROOT / "app" / "tag-data.json"))
 
     # ── Commit and push ─────────────────────────────────────────────────────
-    git("commit", "-m", f"add commentary: {title[:72]}")
+    git("commit", "-m", f"add publication: {title[:72]}")
     git("push", "--force", "origin", branch)
 
     # ── Open PR ─────────────────────────────────────────────────────────────
@@ -460,7 +494,7 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
     # Create the PR first so its number is available for the preview links,
     # then fill in the full description.
     pr = gh_repo.create_pull(
-        title=f"Add commentary: {title}",
+        title=f"Add publication: {title}",
         body="Generating description…",
         head=branch,
         base="main",
@@ -471,13 +505,14 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
     )
 
     # ── Summary ──────────────────────────────────────────────────────────────
-    summary_lines = [f"- Added commentary `{title}` by `{author_name}`"]
+    summary_lines = [f"- Added {pub_type} `{title}` by `{author_name}`"]
     if new_author:
         summary_lines.append(f"- Added author `{author_name}`")
     pr_sections = ["## Summary", "\n".join(summary_lines)]
 
     # ── Preview ──────────────────────────────────────────────────────────────
-    preview_lines = [f"- Commentary: {preview_base}/commentaries/{slug}"]
+    pub_segment = PUBTYPE_SEGMENT.get(pub_type, "commentaries")
+    preview_lines = [f"- Publication: {preview_base}/publications/{pub_segment}/{slug}"]
     if new_author:
         preview_lines.append(f"- Author: {preview_base}/authors/{author_slug}")
     pr_sections += ["", "## Preview", "\n".join(preview_lines)]
@@ -493,8 +528,9 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
     # ── Validation ───────────────────────────────────────────────────────────
     validation_lines = [
         "- [ ] Title — reads correctly with no formatting issues",
-        "- [ ] Commentary — body renders correctly, no formatting issues",
-        "- [ ] Commentary URL — slug is correct and readable",
+        "- [ ] Publication type — commentary / book-review / interview is correct",
+        "- [ ] Body — renders correctly, no formatting issues",
+        "- [ ] Publication URL — slug is correct and readable",
         "- [ ] Summary — reads well and displays correctly",
         "- [ ] Image — commentary image renders and looks right",
         "- [ ] Date — publish date is correct",
@@ -586,7 +622,7 @@ def write_step_summary(results: list[tuple[str, bool, str]]) -> None:
     if not summary_path:
         return
 
-    lines = ["## Process Commentary Submissions", ""]
+    lines = ["## Process Publication Submissions", ""]
     if not results:
         lines.append("**No confirmed, unprocessed rows found.**")
     else:

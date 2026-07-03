@@ -18,7 +18,7 @@ No test suite is configured. There is no single-test command.
 
 ### Submission automation
 
-Editors mark a **Confirmed** checkbox on the Google Sheet that collects form submissions. The script `scripts/process_submissions.py` reads all confirmed, unprocessed rows, downloads the commentary `.docx` from Drive, converts it to Markdown via pandoc, creates author MDX profiles for new authors, writes the commentary MDX, and opens a GitHub PR targeting `main`. It can be triggered locally (via the command above) or via the [Process Commentary Submissions](.github/workflows/process-submissions.yml) workflow from the Actions tab. Credentials for local runs live in `.env` (gitignored). GitHub Actions reads `GOOGLE_SERVICE_ACCOUNT_KEY` and `GOOGLE_SHEET_ID` from repository secrets.
+Editors mark a **Confirmed** checkbox on the Google Sheet that collects form submissions. The script `scripts/process_submissions.py` reads all confirmed, unprocessed rows, downloads the publication `.docx` from Drive, converts it to Markdown via pandoc, creates author MDX profiles for new authors, writes the publication MDX (including its `pubType` from the sheet's **Publication Type** column), and opens a GitHub PR targeting `main`. It can be triggered locally (via the command above) or via the [Process Publication Submissions](.github/workflows/process-submissions.yml) workflow from the Actions tab. Credentials for local runs live in `.env` (gitignored). GitHub Actions reads `GOOGLE_SERVICE_ACCOUNT_KEY` and `GOOGLE_SHEET_ID` from repository secrets.
 
 ## Architecture
 
@@ -28,7 +28,7 @@ This is **The Statecraft Institute** — a think-tank site built on the [Tailwin
 
 Content is defined in `contentlayer.config.ts` and lives under `data/`. Two document types:
 
-- **Commentaries** (`data/commentaries/**/*.mdx`) — commentaries published at `/commentaries/[slug]`. Required frontmatter: `title`, `date`. Optional: `tags`, `draft`, `summary`, `images`, `authors`, `layout`.
+- **Publications** (`data/publications/**/*.mdx`, document type `Blog`) — published at `/publications/[slug]`. Required frontmatter: `title`, `date`, `pubType` (`commentary` | `book-review` | `interview` — decides which listing it shows under; rendered as a `CategoryBadge`). Optional: `tags`, `draft`, `summary`, `images`, `authors`, `layout`.
 - **People** (`data/people/**/*.mdx`) — author and board member profiles. Key flags: `isAuthor`, `isBoardMember`, `boardSection` (`editorial` | `advisory`), `boardOrder`.
 
 On build success, Contentlayer writes:
@@ -45,10 +45,12 @@ Pages pull structured content from TypeScript files in `data/`:
 ### App routes
 
 Next.js 15 App Router. Key routes:
-- `/` → `app/page.tsx` + `app/Main.tsx` — hero + latest 6 commentaries grid
-- `/commentaries` — commentary listing with tag sidebar (`ListLayoutWithTags`)
-- `/commentaries/[...slug]` — commentary detail page
-- `/commentaries/page/[page]` — paginated listing
+- `/` → `app/page.tsx` + `app/Main.tsx` — hero + latest 6 publications grid
+- `/publications` — all publications with tag sidebar + `CategoryTabs` (`ListLayoutWithTags`)
+- `/publications/commentaries`, `/publications/book-reviews`, `/publications/interviews` — listings filtered by `pubType` (share `layouts/PublicationListPage.tsx`)
+- `/publications/[...slug]` — publication detail page
+- `/publications/page/[page]` (and `/publications/<type>/page/[page]`) — paginated listings
+- `/commentaries/*` and `/articles/*` — legacy redirect stubs → `/publications/*` (meta-refresh)
 - `/about`, `/contact`, `/write-for-us` — static pages driven by `data/*.ts` files
 - `/journal`, `/journal/author-guidelines`, `/journal/editorial-board` — NEETIVIYUH journal section
 - `/team` — team page (currently commented out of nav in `headerNavLinks.ts`)
@@ -73,7 +75,7 @@ These are rendered in the Footer via `SocialIcon`. The `SocialIcon` component (`
 
 ### Images
 
-Commentary images live in `public/static/images/commentaries/` and are named after the commentary's URL slug — i.e. the same basename as the commentary's MDX file, keeping the source extension (e.g. `india-sagar-to-mahasagar-maritime-doctrine.jpg` for `data/commentaries/india-sagar-to-mahasagar-maritime-doctrine.mdx`). Author photos go in `public/static/images/people/<firstname-lastname>.jpg`.
+Publication images live in `public/static/images/commentaries/` (folder intentionally keeps its historical `commentaries` name even though content moved to `data/publications/`) and are named after the publication's slug — i.e. the same basename as the MDX file, keeping the source extension (e.g. `india-sagar-to-mahasagar-maritime-doctrine.jpg` for `data/publications/india-sagar-to-mahasagar-maritime-doctrine.mdx`). Author photos go in `public/static/images/people/<firstname-lastname>.jpg`.
 
 ### Deployment
 

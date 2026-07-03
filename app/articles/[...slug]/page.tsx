@@ -1,4 +1,4 @@
-import { allBlogs } from 'contentlayer/generated'
+import { allPublications } from 'contentlayer/generated'
 import Link from 'next/link'
 
 export const metadata = {
@@ -6,13 +6,15 @@ export const metadata = {
 }
 
 export const generateStaticParams = async () => {
-  return allBlogs.map((p) => ({ slug: p.slug.split('/').map((name) => decodeURI(name)) }))
+  return allPublications.map((p) => ({ slug: p.slug.split('/').map((name) => decodeURI(name)) }))
 }
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'))
-  const target = `/commentaries/${slug}/`
+  // The article now lives under its pubType segment; use the computed path.
+  const post = allPublications.find((p) => p.slug === slug)
+  const target = post ? `/${post.path}/` : `/publications/`
 
   return (
     <>

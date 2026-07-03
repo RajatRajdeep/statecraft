@@ -1,4 +1,4 @@
-import { allBlogs } from 'contentlayer/generated'
+import { allPublications } from 'contentlayer/generated'
 import Link from 'next/link'
 
 const POSTS_PER_PAGE = 5
@@ -8,13 +8,13 @@ export const metadata = {
 }
 
 export const generateStaticParams = async () => {
-  const totalPages = Math.ceil(allBlogs.length / POSTS_PER_PAGE)
+  const totalPages = Math.ceil(allPublications.length / POSTS_PER_PAGE)
   return Array.from({ length: totalPages }, (_, i) => ({ page: (i + 1).toString() }))
 }
 
 export default async function Page(props: { params: Promise<{ page: string }> }) {
   const params = await props.params
-  const target = `/commentaries/page/${params.page}/`
+  const target = `/publications/page/${params.page}/`
 
   return (
     <>

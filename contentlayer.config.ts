@@ -29,6 +29,22 @@ import prettier from 'prettier'
 const root = process.cwd()
 const isProduction = process.env.NODE_ENV === 'production'
 
+// Maps a publication's `pubType` to its URL segment. Article URLs are
+// `/publications/<segment>/<slug>` so the type is visible in the path.
+const PUBTYPE_SEGMENT: Record<string, string> = {
+  commentary: 'commentaries',
+  'book-review': 'book-reviews',
+  interview: 'interviews',
+}
+
+const pubTypeSegment = (pubType?: string) => PUBTYPE_SEGMENT[pubType ?? ''] ?? 'commentaries'
+
+// Flat filename slug (Contentlayer strips the leading `publications/`).
+const flatSlug = (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, '')
+
+// Full type-segmented path used for links, sitemap and canonical URLs.
+const publicationPath = (doc) => `publications/${pubTypeSegment(doc.pubType)}/${flatSlug(doc)}`
+
 // heroicon mini link
 const icon = fromHtmlIsomorphic(
   `
@@ -62,9 +78,9 @@ const computedFields: ComputedFields = {
 /**
  * Count the occurrences of all tags across blog posts and write to json file
  */
-async function createTagCount(allBlogs) {
+async function createTagCount(allPublications) {
   const tagCount: Record<string, number> = {}
-  allBlogs.forEach((file) => {
+  allPublications.forEach((file) => {
     if (file.tags && (!isProduction || file.draft !== true)) {
       file.tags.forEach((tag) => {
         const formattedTag = slug(tag)
@@ -80,26 +96,35 @@ async function createTagCount(allBlogs) {
   writeFileSync('./app/tag-data.json', formatted)
 }
 
-function createSearchIndex(allBlogs) {
+function createSearchIndex(allPublications) {
   if (
     siteMetadata?.search?.provider === 'kbar' &&
     siteMetadata.search.kbarConfig.searchDocumentsPath
   ) {
     writeFileSync(
       `public/${path.basename(siteMetadata.search.kbarConfig.searchDocumentsPath)}`,
-      JSON.stringify(allCoreContent(sortPosts(allBlogs)))
+      JSON.stringify(allCoreContent(sortPosts(allPublications)))
     )
     console.log('Local search index generated...')
   }
 }
 
-export const Blog = defineDocumentType(() => ({
-  name: 'Blog',
-  filePathPattern: 'commentaries/**/*.mdx',
+export const Publication = defineDocumentType(() => ({
+  name: 'Publication',
+  filePathPattern: 'publications/**/*.mdx',
   contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
+    // Publication type — drives the /publications/<type> listings and the
+    // CategoryBadge/CategoryTabs UI. Required so every publication is
+    // classified explicitly. Named `pubType` because Contentlayer reserves
+    // `type` for the document-type discriminator.
+    pubType: {
+      type: 'enum',
+      options: ['commentary', 'book-review', 'interview'],
+      required: true,
+    },
     lang: { type: 'enum', options: ['english', 'hindi'], default: 'english' },
     tags: { type: 'list', of: { type: 'string' }, default: [] },
     lastmod: { type: 'date' },
@@ -113,6 +138,11 @@ export const Blog = defineDocumentType(() => ({
   },
   computedFields: {
     ...computedFields,
+    // Override the shared `path` so it carries the pubType segment.
+    path: {
+      type: 'string',
+      resolve: (doc) => publicationPath(doc),
+    },
     structuredData: {
       type: 'json',
       resolve: (doc) => ({
@@ -123,7 +153,7 @@ export const Blog = defineDocumentType(() => ({
         dateModified: doc.lastmod || doc.date,
         description: doc.summary,
         image: doc.images ? doc.images[0] : siteMetadata.socialBanner,
-        url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
+        url: `${siteMetadata.siteUrl}/${publicationPath(doc)}`,
       }),
     },
   },
@@ -157,7 +187,7 @@ export const People = defineDocumentType(() => ({
 
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, People],
+  documentTypes: [Publication, People],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [
@@ -188,8 +218,8 @@ export default makeSource({
     ],
   },
   onSuccess: async (importData) => {
-    const { allBlogs } = await importData()
-    createTagCount(allBlogs)
-    createSearchIndex(allBlogs)
+    const { allPublications } = await importData()
+    createTagCount(allPublications)
+    createSearchIndex(allPublications)
   },
 })
