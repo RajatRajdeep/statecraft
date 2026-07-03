@@ -78,6 +78,12 @@ export default function ListLayoutWithTags({
   pagination,
 }: ListLayoutProps) {
   const pathname = usePathname()
+  // On a single-type listing (e.g. /publications/commentaries) every row is the
+  // same type, so the badge is redundant — only show it where types are mixed
+  // (the "all" listing and tag pages).
+  const singleTypeListing = /^\/publications\/(commentaries|book-reviews|interviews)(\/|$)/.test(
+    pathname
+  )
   const tagCounts = tagData as Record<string, number>
   const tagKeys = Object.keys(tagCounts)
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
@@ -145,7 +151,7 @@ export default function ListLayoutWithTags({
                           <time dateTime={date} suppressHydrationWarning>
                             {formatDate(date)}
                           </time>
-                          <CategoryBadge type={pubType} />
+                          {!singleTypeListing && <CategoryBadge type={pubType} />}
                         </dd>
                       </dl>
                       <div className="space-y-3">
