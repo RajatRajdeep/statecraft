@@ -51,6 +51,9 @@ export default function PostLayout({
         <div className="px-4 sm:px-6 lg:px-8 xl:px-12">
           <header className="pt-12 xl:pt-16 xl:pb-2">
             <div className="space-y-1 text-center">
+              <div className="mb-4">
+                <CategoryBadge type={pubType} variant="masthead" />
+              </div>
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
@@ -124,14 +127,6 @@ export default function PostLayout({
               </dd>
               <div className="mt-6 xl:pt-6">
                 <dt className="text-right text-xs font-medium tracking-wide text-gray-500 uppercase xl:text-left dark:text-gray-400">
-                  Category
-                </dt>
-                <dd className="mt-1 ml-auto w-fit border-b border-gray-200 pb-3 text-right text-sm leading-6 xl:ml-0 xl:w-auto xl:border-0 xl:pb-0 xl:text-left dark:border-gray-700">
-                  <CategoryBadge type={pubType} />
-                </dd>
-              </div>
-              <div className="mt-6 xl:pt-6">
-                <dt className="text-right text-xs font-medium tracking-wide text-gray-500 uppercase xl:text-left dark:text-gray-400">
                   Published on
                 </dt>
                 <dd className="mt-1 ml-auto w-fit border-b border-gray-200 pb-3 text-right text-sm leading-6 text-gray-500 xl:ml-0 xl:w-auto xl:border-0 xl:pb-0 xl:text-left dark:border-gray-700 dark:text-gray-400">
@@ -187,7 +182,7 @@ export default function PostLayout({
                     {prev && prev.path && (
                       <div>
                         <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                          Previous Commentary
+                          Previous Publication
                         </h2>
                         <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
                           <Link href={`/${prev.path}`}>{prev.title}</Link>
@@ -197,7 +192,7 @@ export default function PostLayout({
                     {next && next.path && (
                       <div>
                         <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                          Next Commentary
+                          Next Publication
                         </h2>
                         <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
                           <Link href={`/${next.path}`}>{next.title}</Link>

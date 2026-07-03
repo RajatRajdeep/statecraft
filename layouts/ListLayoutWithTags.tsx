@@ -151,7 +151,9 @@ export default function ListLayoutWithTags({
                           <time dateTime={date} suppressHydrationWarning>
                             {formatDate(date)}
                           </time>
-                          {!singleTypeListing && <CategoryBadge type={pubType} />}
+                          {!singleTypeListing && (
+                            <CategoryBadge type={pubType} variant="chip" className="ml-auto" />
+                          )}
                         </dd>
                       </dl>
                       <div className="space-y-3">

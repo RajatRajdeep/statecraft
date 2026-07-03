@@ -53,7 +53,7 @@ export default function Home({ posts }) {
                   className="overflow-hidden rounded-lg border border-gray-200 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700"
                 >
                   {images && images[0] && (
-                    <div className="h-48 overflow-hidden">
+                    <div className="relative h-48 overflow-hidden">
                       <Image
                         src={images[0]}
                         alt={title}
@@ -61,10 +61,15 @@ export default function Home({ posts }) {
                         height={192}
                         className="h-full w-full object-cover"
                       />
+                      <CategoryBadge
+                        type={pubType}
+                        variant="overlay"
+                        className="absolute top-3 left-3"
+                      />
                     </div>
                   )}
                   <div className="p-5">
-                    <CategoryBadge type={pubType} className="mb-2" />
+                    {(!images || !images[0]) && <CategoryBadge type={pubType} className="mb-2" />}
                     <h3 className="mb-2 text-lg leading-snug font-bold">
                       <Link
                         href={`/${path}`}
