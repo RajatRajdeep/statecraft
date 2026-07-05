@@ -5,7 +5,9 @@ import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { components } from '@/components/MDXComponents'
 import Image from '@/components/Image'
 import Link from '@/components/Link'
+import Tag from '@/components/Tag'
 import CategoryBadge from '@/components/CategoryBadge'
+import { formatDate } from '@/data/formatDate'
 import { genPageMetadata } from 'app/seo'
 
 export async function generateStaticParams() {
@@ -64,29 +66,42 @@ export default async function AuthorPage({ params }: { params: Promise<{ slug: s
         {commentaries.length === 0 ? (
           <p className="text-gray-500">No publications yet.</p>
         ) : (
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+          <ul>
             {commentaries.map((post) => (
-              <li key={post.slug} className="py-6">
-                <Link href={`/${post.path}`} className="group block">
-                  <div className="mb-1 flex items-center gap-3">
-                    <p className="text-gold text-xs font-semibold tracking-widest uppercase">
-                      {new Date(post.date).toLocaleDateString('en-GB', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                      })}
-                    </p>
-                    <CategoryBadge type={post.pubType} />
+              <li
+                key={post.slug}
+                className="border-b border-gray-200 py-6 last:border-0 dark:border-gray-700"
+              >
+                <article className="flex flex-col space-y-2 xl:space-y-0">
+                  <dl>
+                    <dt className="sr-only">Published on</dt>
+                    <dd className="flex items-center gap-3 text-base leading-6 font-medium text-gray-500 dark:text-gray-400">
+                      <time dateTime={post.date} suppressHydrationWarning>
+                        {formatDate(post.date)}
+                      </time>
+                      <CategoryBadge type={post.pubType} variant="chip" className="ml-auto" />
+                    </dd>
+                  </dl>
+                  <div className="space-y-3">
+                    <div>
+                      <h2 className="text-2xl leading-8 font-bold tracking-tight">
+                        <Link href={`/${post.path}`} className="text-gray-900 dark:text-gray-100">
+                          {post.title}
+                        </Link>
+                      </h2>
+                      <div className="flex flex-wrap">
+                        {post.tags?.map((tag) => (
+                          <Tag key={tag} text={tag} />
+                        ))}
+                      </div>
+                    </div>
+                    {post.summary && (
+                      <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+                        {post.summary}
+                      </div>
+                    )}
                   </div>
-                  <h3 className="group-hover:text-gold dark:group-hover:text-gold text-xl font-semibold transition-colors dark:text-white">
-                    {post.title}
-                  </h3>
-                  {post.summary && (
-                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                      {post.summary}
-                    </p>
-                  )}
-                </Link>
+                </article>
               </li>
             ))}
           </ul>

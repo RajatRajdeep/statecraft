@@ -9,6 +9,9 @@ import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import CategoryBadge from '@/components/CategoryBadge'
 import CategoryTabs from '@/components/CategoryTabs'
+import AuthorCard from '@/components/AuthorCard'
+import type { AuthorInfo } from '@/data/authorMap'
+import { resolveAuthors } from '@/data/authorMap'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
 
@@ -21,6 +24,7 @@ interface ListLayoutProps {
   title: string
   initialDisplayPosts?: CoreContent<Publication>[]
   pagination?: PaginationProps
+  authorsBySlug?: Record<string, AuthorInfo>
 }
 
 function Pagination({ totalPages, currentPage }: PaginationProps) {
@@ -76,6 +80,7 @@ export default function ListLayoutWithTags({
   title,
   initialDisplayPosts = [],
   pagination,
+  authorsBySlug = {},
 }: ListLayoutProps) {
   const pathname = usePathname()
   // On a single-type listing (e.g. /publications/commentaries) every row is the
@@ -138,7 +143,8 @@ export default function ListLayoutWithTags({
             {pathname.startsWith('/publications') && <CategoryTabs />}
             <ul>
               {displayPosts.map((post) => {
-                const { path, date, title, summary, tags, pubType } = post
+                const { path, date, title, summary, tags, pubType, authors } = post
+                const postAuthors = resolveAuthors(authors, authorsBySlug)
                 return (
                   <li
                     key={path}
@@ -172,6 +178,7 @@ export default function ListLayoutWithTags({
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">
                           {summary}
                         </div>
+                        {postAuthors.length > 0 && <AuthorCard authors={postAuthors} />}
                       </div>
                     </article>
                   </li>

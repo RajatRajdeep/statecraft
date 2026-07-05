@@ -2,6 +2,7 @@ import { slug } from 'github-slugger'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import ListLayout from '@/layouts/ListLayoutWithTags'
 import { allPublications } from 'contentlayer/generated'
+import { getAuthorMap } from '@/data/authorMap'
 import tagData from 'app/tag-data.json'
 import { notFound } from 'next/navigation'
 
@@ -50,6 +51,7 @@ export default async function TagPage(props: { params: Promise<{ tag: string; pa
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
       title={title}
+      authorsBySlug={getAuthorMap()}
     />
   )
 }

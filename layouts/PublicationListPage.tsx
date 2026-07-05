@@ -1,6 +1,7 @@
 import ListLayout from '@/layouts/ListLayoutWithTags'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { allPublications } from 'contentlayer/generated'
+import { getAuthorMap } from '@/data/authorMap'
 import { notFound } from 'next/navigation'
 
 export const POSTS_PER_PAGE = 5
@@ -48,6 +49,7 @@ export default function PublicationListPage({
       initialDisplayPosts={initialDisplayPosts}
       pagination={{ currentPage: pageNumber, totalPages }}
       title={title}
+      authorsBySlug={getAuthorMap()}
     />
   )
 }

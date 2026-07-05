@@ -3,12 +3,15 @@ import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import Button from '@/components/Button'
 import CategoryBadge from '@/components/CategoryBadge'
+import AuthorCard from '@/components/AuthorCard'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from '@/data/formatDate'
+import { getAuthorMap, resolveAuthors } from '@/data/authorMap'
 
 const MAX_DISPLAY = 6
 
 export default function Home({ posts }) {
+  const authorMap = getAuthorMap()
   return (
     <>
       {/* Hero Section — full viewport width */}
@@ -46,7 +49,8 @@ export default function Home({ posts }) {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {!posts.length && <p className="text-gray-500">No posts found.</p>}
             {posts.slice(0, MAX_DISPLAY).map((post) => {
-              const { slug, path, date, title, summary, tags, images, pubType } = post
+              const { slug, path, date, title, summary, tags, images, pubType, authors } = post
+              const postAuthors = resolveAuthors(authors, authorMap)
               return (
                 <article
                   key={slug}
@@ -88,6 +92,9 @@ export default function Home({ posts }) {
                     <p className="mb-3 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
                       {summary}
                     </p>
+                    {postAuthors.length > 0 && (
+                      <AuthorCard authors={postAuthors} className="mb-4" />
+                    )}
                     <div className="flex items-center justify-between">
                       <time className="text-xs text-gray-400" dateTime={date}>
                         {formatDate(date)}

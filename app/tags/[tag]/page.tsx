@@ -3,6 +3,7 @@ import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayoutWithTags'
 import { allPublications } from 'contentlayer/generated'
+import { getAuthorMap } from '@/data/authorMap'
 import tagData from 'app/tag-data.json'
 import { genPageMetadata } from 'app/seo'
 import { Metadata } from 'next'
@@ -56,6 +57,7 @@ export default async function TagPage(props: { params: Promise<{ tag: string }> 
       initialDisplayPosts={initialDisplayPosts}
       pagination={pagination}
       title={title}
+      authorsBySlug={getAuthorMap()}
     />
   )
 }
