@@ -17,7 +17,7 @@ No coding required. Everything is done through the browser.
 ## Step 2 — Upload your commentary image
 
 1. First, decide your commentary's **URL slug** — the lowercase-hyphenated name you'll use for the commentary file in Step 3 (e.g. `india-foreign-policy-2026`). Your image must use this exact same name.
-2. In the left sidebar, open the folder **`public/static/images/commentaries/`**
+2. In the left sidebar, open the folder **`public/static/images/publications/commentaries/`**
 3. Right-click on the `commentaries` folder → **Upload...**
 4. Select your image file and upload it
 5. Rename it to match your commentary's slug, keeping the image extension
@@ -41,7 +41,7 @@ date: "2026-05-22"
 tags: ["indo-pacific", "foreign-policy"]
 draft: false
 summary: "One or two sentences describing the commentary. This appears in the commentary list."
-images: ["/static/images/commentaries/india-foreign-policy-2026.jpg"]
+images: ["/static/images/publications/commentaries/india-foreign-policy-2026.jpg"]
 authors: ["author-slug-here"]
 ---
 
@@ -69,7 +69,7 @@ Your paragraph here.
 | `tags`    | 1–3 topic tags, **lowercase with hyphens** e.g. `'indo-pacific'`, `'foreign-policy'` |
 | `draft`   | Always `false` to publish, `true` to hide                                            |
 | `summary` | 2-3 sentence description shown in the commentary list                                |
-| `images`  | Path to your uploaded image, named after the slug e.g. `'/static/images/commentaries/india-foreign-policy-2026.jpg'` |
+| `images`  | Path to your uploaded image, named after the slug e.g. `'/static/images/publications/commentaries/india-foreign-policy-2026.jpg'` |
 | `authors` | The author's slug (see list below)                                                   |
 
 ### Author slugs

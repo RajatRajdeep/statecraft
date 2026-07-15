@@ -42,9 +42,7 @@ if _env_file.exists():
 REPO_ROOT = Path(__file__).parent.parent
 PUBLICATIONS_DIR = REPO_ROOT / "data" / "publications"
 PEOPLE_DIR = REPO_ROOT / "data" / "people"
-# The image folder keeps its historical `commentaries` name (independent of the
-# content folder / URL slug) so existing `images:` frontmatter paths stay valid.
-COMMENTARIES_IMG_DIR = REPO_ROOT / "public" / "static" / "images" / "commentaries"
+PUBLICATIONS_IMG_DIR = REPO_ROOT / "public" / "static" / "images" / "publications"
 PEOPLE_IMG_DIR = REPO_ROOT / "public" / "static" / "images" / "people"
 
 # ── Constants ──────────────────────────────────────────────────────────────────
@@ -367,6 +365,10 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
     git("checkout", "-b", branch)
 
     # ── Article image ───────────────────────────────────────────────────────
+    pub_type = normalise_pubtype(col(COL_PUBTYPE))
+    pub_segment = PUBTYPE_SEGMENT.get(pub_type, "commentaries")
+    pub_img_dir = PUBLICATIONS_IMG_DIR / pub_segment
+
     image_path = ""
     article_img_url = col(COL_ARTICLE_IMG)
 
@@ -387,9 +389,9 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
                     )
                 else:
                     img_bytes = download_drive_file(drive, img_id, img_meta["mimeType"])
-                    dest = COMMENTARIES_IMG_DIR / f"{slug}{img_ext}"
+                    dest = pub_img_dir / f"{slug}{img_ext}"
                     dest.write_bytes(img_bytes)
-                    image_path = f"/static/images/commentaries/{slug}{img_ext}"
+                    image_path = f"/static/images/publications/{pub_segment}/{slug}{img_ext}"
                     git("add", str(dest))
             except Exception as e:
                 notes.append(f"Article image download failed: {e}")
@@ -454,7 +456,6 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
     lang = col(COL_LANG).lower() or "english"
     summary = col(COL_SUMMARY)
     publish_date = normalise_date(col(COL_PUBLISH_DATE))
-    pub_type = normalise_pubtype(col(COL_PUBTYPE))
 
     commentary_mdx = build_commentary_mdx(
         title=title,
@@ -511,7 +512,6 @@ def process_row(row: dict, drive, gh_repo) -> tuple[bool, str, list[str]]:
     pr_sections = ["## Summary", "\n".join(summary_lines)]
 
     # ── Preview ──────────────────────────────────────────────────────────────
-    pub_segment = PUBTYPE_SEGMENT.get(pub_type, "commentaries")
     preview_lines = [f"- Publication: {preview_base}/publications/{pub_segment}/{slug}"]
     if new_author:
         preview_lines.append(f"- Author: {preview_base}/authors/{author_slug}")

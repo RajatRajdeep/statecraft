@@ -75,7 +75,7 @@ These are rendered in the Footer via `SocialIcon`. The `SocialIcon` component (`
 
 ### Images
 
-Publication images live in `public/static/images/commentaries/` (folder intentionally keeps its historical `commentaries` name even though content moved to `data/publications/`) and are named after the publication's slug — i.e. the same basename as the MDX file, keeping the source extension (e.g. `india-sagar-to-mahasagar-maritime-doctrine.jpg` for `data/publications/india-sagar-to-mahasagar-maritime-doctrine.mdx`). Author photos go in `public/static/images/people/<firstname-lastname>.jpg`.
+Publication images live under `public/static/images/publications/<pubType-segment>/` — `commentaries/`, `book-reviews/`, or `interviews/`, matching the publication's `pubType` (via `PUBTYPE_SEGMENT` in `scripts/process_submissions.py` / `contentlayer.config.ts`). Each image is named after the publication's slug — i.e. the same basename as the MDX file, keeping the source extension (e.g. `india-sagar-to-mahasagar-maritime-doctrine.jpg` for `data/publications/india-sagar-to-mahasagar-maritime-doctrine.mdx`). Author photos go in `public/static/images/people/<firstname-lastname>.jpg`.
 
 ### Deployment
 
