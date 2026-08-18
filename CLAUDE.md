@@ -28,16 +28,19 @@ This is **The Statecraft Institute** — a think-tank site built on the [Tailwin
 
 Content is defined in `contentlayer.config.ts` and lives under `data/`. Two document types:
 
-- **Publications** (`data/publications/**/*.mdx`, document type `Blog`) — published at `/publications/[slug]`. Required frontmatter: `title`, `date`, `pubType` (`commentary` | `book-review` | `interview` — decides which listing it shows under; rendered as a `CategoryBadge`). Optional: `tags`, `draft`, `summary`, `images`, `authors`, `layout`.
+- **Publications** (`data/publications/**/*.mdx`, document type `Blog`) — published at `/publications/<pubType-segment>/<slug>`. Required frontmatter: `title`, `date`, `pubType` (`commentary` | `book-review` | `interview` | `research` — decides which listing it shows under; rendered as a `CategoryBadge`). Optional: `tags`, `draft`, `summary`, `images`, `authors`, `layout`.
+  - `pubType: research` papers are the exception: they belong to the **Research Projects** section, live at `/research-projects/<series>/<slug>`, and are excluded from the `/publications` listings. They additionally require `series` (a slug from `data/researchSeriesData.ts` — the build throws without it) and may set `seriesOrder` for the "Part N" label.
 - **People** (`data/people/**/*.mdx`) — author and board member profiles. Key flags: `isAuthor`, `isBoardMember`, `boardSection` (`editorial` | `advisory`), `boardOrder`.
 
 On build success, Contentlayer writes:
+
 - `app/tag-data.json` — tag counts used by the tag sidebar
 - `public/search.json` — kbar full-text search index
 
 ### Static data files
 
 Pages pull structured content from TypeScript files in `data/`:
+
 - `siteMetadata.js` — site-wide config (title, URL, analytics IDs, comments, search)
 - `aboutData.ts`, `expertsData.ts`, `journalData.ts`, `writeForUsData.ts` — page-specific copy
 - `headerNavLinks.ts` — top navigation (edit here to add/remove nav items)
@@ -45,11 +48,14 @@ Pages pull structured content from TypeScript files in `data/`:
 ### App routes
 
 Next.js 15 App Router. Key routes:
+
 - `/` → `app/page.tsx` + `app/Main.tsx` — hero + latest 6 publications grid
 - `/publications` — all publications with tag sidebar + `CategoryTabs` (`ListLayoutWithTags`)
 - `/publications/commentaries`, `/publications/book-reviews`, `/publications/interviews` — listings filtered by `pubType` (share `layouts/PublicationListPage.tsx`)
 - `/publications/[...slug]` — publication detail page
 - `/publications/page/[page]` (and `/publications/<type>/page/[page]`) — paginated listings
+- `/research-projects` — Research Projects landing: series list (`components/SeriesCards.tsx`) above all papers
+- `/research-projects/[series]` — series landing (`components/SeriesHeader.tsx`); `/research-projects/[series]/[slug]` — paper detail; both have `page/[page]` pagination
 - `/commentaries/*` and `/articles/*` — legacy redirect stubs → `/publications/*` (meta-refresh)
 - `/about`, `/contact`, `/write-for-us` — static pages driven by `data/*.ts` files
 - `/journal`, `/journal/author-guidelines`, `/journal/editorial-board` — NEETIVIYUH journal section
@@ -57,9 +63,16 @@ Next.js 15 App Router. Key routes:
 - `/_experts` — private experts page (underscore prefix; not linked in nav)
 - `/tags/[tag]` — auto-generated tag pages
 
+### Research Projects
+
+Research papers are organised into series. `data/researchSeriesData.ts` is the single registry — one entry per series (`slug`, `title`, `tagline`, `description` as an array of paragraphs, `order`) — and routes, sitemap entries and `generateStaticParams` all derive from it. Adding a series means appending an entry there, adding a nav child in `data/headerNavLinks.ts`, and giving the papers a matching `series` frontmatter value.
+
+Each paper offers a typeset PDF edition. These are **authored by the institute and committed** to `public/static/pdf/research-projects/<series>/<slug>.pdf`; `layouts/PublicationDetail.tsx` probes for that file (using the publication's `series` frontmatter) and renders `DownloadPdfButton` when it exists, so any research publication can carry one. There is no PDF generation at build time — the former headless-Chrome `/print` pipeline was removed.
+
 ### Branding & styles
 
 Brand colors are defined as CSS custom properties in `css/tailwind.css` and used as Tailwind classes throughout:
+
 - `bg-navy` / `text-navy` — `#162755` (dark navy blue)
 - `text-gold` / `border-gold` — `#c9a227` (gold)
 
@@ -68,6 +81,7 @@ The `.full-bleed` utility class extends a section edge-to-edge (100vw) regardles
 ### Social links
 
 `data/siteMetadata.js` has active entries for:
+
 - `x` — `https://x.com/TSI_India_`
 - `linkedin` — `https://www.linkedin.com/company/the-statecraft-institute-india/`
 
@@ -75,7 +89,7 @@ These are rendered in the Footer via `SocialIcon`. The `SocialIcon` component (`
 
 ### Images
 
-Publication images live under `public/static/images/publications/<pubType-segment>/` — `commentaries/`, `book-reviews/`, or `interviews/`, matching the publication's `pubType` (via `PUBTYPE_SEGMENT` in `scripts/process_submissions.py` / `contentlayer.config.ts`). Each image is named after the publication's slug — i.e. the same basename as the MDX file, keeping the source extension (e.g. `india-sagar-to-mahasagar-maritime-doctrine.jpg` for `data/publications/india-sagar-to-mahasagar-maritime-doctrine.mdx`). Author photos go in `public/static/images/people/<firstname-lastname>.jpg`.
+Publication images live under `public/static/images/publications/<pubType-segment>/` — `commentaries/`, `book-reviews/`, or `interviews/`, matching the publication's `pubType` (via `PUBTYPE_SEGMENT` in `scripts/process_submissions.py` / `contentlayer.config.ts`). Research-paper images instead live in `public/static/images/research-projects/<series>/`, grouped by series. Each image is named after the publication's slug — i.e. the same basename as the MDX file, keeping the source extension (e.g. `india-sagar-to-mahasagar-maritime-doctrine.jpg` for `data/publications/india-sagar-to-mahasagar-maritime-doctrine.mdx`). Author photos go in `public/static/images/people/<firstname-lastname>.jpg`.
 
 ### Deployment
 

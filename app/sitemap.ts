@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { allPublications } from 'contentlayer/generated'
 import siteMetadata from '@/data/siteMetadata'
+import { researchSeries } from '@/data/researchSeriesData'
 
 export const dynamic = 'force-static'
 
@@ -20,6 +21,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'publications/commentaries',
     'publications/book-reviews',
     'publications/interviews',
+    'research-projects',
+    ...researchSeries.map((s) => `research-projects/${s.slug}`),
     'tags',
   ].map((route) => ({
     url: `${siteUrl}/${route}`,

@@ -11,6 +11,16 @@ const headerNavLinks = [
       { href: '/publications/interviews', title: 'Interviews' },
     ],
   },
+  {
+    href: '/research-projects',
+    title: 'Research Projects',
+    children: [
+      {
+        href: '/research-projects/brahmastra-nuclear-statecraft',
+        title: 'Brahmastra Series on Nuclear Statecraft',
+      },
+    ],
+  },
   { href: '/expert-contributors', title: 'Expert Contributors' },
   {
     href: '/journal',

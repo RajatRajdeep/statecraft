@@ -12,6 +12,8 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import ShareButton from '@/components/ShareButton'
 import AudioPlayer from '@/components/AudioPlayer'
+import DownloadPdfButton from '@/components/DownloadPdfButton'
+import { getSeries } from '@/data/researchSeriesData'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -30,6 +32,8 @@ interface LayoutProps {
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
   audioSrc?: string
+  /** Served URL of the pre-generated PDF, when this publication has one. */
+  pdfHref?: string
   children: ReactNode
 }
 
@@ -39,10 +43,15 @@ export default function PostLayout({
   next,
   prev,
   audioSrc,
+  pdfHref,
   children,
 }: LayoutProps) {
-  const { filePath, path, slug, date, title, tags, pubType } = content
+  const { filePath, path, slug, date, title, tags, pubType, series } = content
   const basePath = path.split('/')[0]
+  const isResearch = pubType === 'research'
+  // Research papers belong to a series; name it beside the type in the
+  // masthead. Plain text, not a link — the series is one click away in the nav.
+  const seriesEntry = isResearch && series ? getSeries(series) : undefined
 
   return (
     <SectionContainer>
@@ -52,13 +61,14 @@ export default function PostLayout({
           <header className="pt-12 xl:pt-16 xl:pb-2">
             <div className="space-y-1 text-center">
               <div className="mb-4">
-                <CategoryBadge type={pubType} variant="masthead" />
+                <CategoryBadge type={pubType} variant="masthead" suffix={seriesEntry?.title} />
               </div>
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
               <div className="mt-5 hidden items-center justify-end gap-2 xl:flex">
                 {audioSrc && <AudioPlayer src={audioSrc} label="Listen" />}
+                {pdfHref && <DownloadPdfButton href={pdfHref} />}
                 <ShareButton />
               </div>
             </div>
@@ -136,16 +146,25 @@ export default function PostLayout({
                 </dd>
               </div>
             </dl>
-            {/* Mobile: Listen / Share after Published On */}
+            {/* Mobile: Listen / PDF / Share after Published On */}
             <div className="pt-2 xl:hidden">
               <div className="flex items-center justify-end gap-2">
                 {audioSrc && <AudioPlayer src={audioSrc} label="Listen" />}
+                {pdfHref && <DownloadPdfButton href={pdfHref} />}
                 <ShareButton />
               </div>
             </div>
             <div className="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
               <div className="prose dark:prose-invert max-w-none pt-10 pb-8 text-justify">
                 {children}
+                {isResearch && (
+                  <p>
+                    <em>
+                      Disclaimer: Views expressed are of the author(s) and do not necessarily
+                      reflect the views of The Statecraft Institute.
+                    </em>
+                  </p>
+                )}
               </div>
               {/* <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
                 <Link href={discussUrl(path)} rel="nofollow">
@@ -206,9 +225,9 @@ export default function PostLayout({
                 <Link
                   href={`/${basePath}`}
                   className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                  aria-label="Back to publications"
+                  aria-label={isResearch ? 'Back to research projects' : 'Back to publications'}
                 >
-                  &larr; Back to publications
+                  &larr; Back to {isResearch ? 'research projects' : 'publications'}
                 </Link>
               </div>
             </footer>

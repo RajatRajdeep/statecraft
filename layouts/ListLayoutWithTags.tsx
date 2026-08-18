@@ -1,5 +1,6 @@
 'use client'
 
+import type { ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
 import { slug } from 'github-slugger'
 import { formatDate } from '@/data/formatDate'
@@ -12,6 +13,7 @@ import CategoryTabs from '@/components/CategoryTabs'
 import AuthorCard from '@/components/AuthorCard'
 import type { AuthorInfo } from '@/data/authorMap'
 import { resolveAuthors } from '@/data/authorMap'
+import { getSeries } from '@/data/researchSeriesData'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
 
@@ -25,6 +27,8 @@ interface ListLayoutProps {
   initialDisplayPosts?: CoreContent<Publication>[]
   pagination?: PaginationProps
   authorsBySlug?: Record<string, AuthorInfo>
+  /** Optional block rendered above the list (series cards, series header…). */
+  intro?: ReactNode
 }
 
 function Pagination({ totalPages, currentPage }: PaginationProps) {
@@ -81,14 +85,19 @@ export default function ListLayoutWithTags({
   initialDisplayPosts = [],
   pagination,
   authorsBySlug = {},
+  intro,
 }: ListLayoutProps) {
   const pathname = usePathname()
   // On a single-type listing (e.g. /publications/commentaries) every row is the
   // same type, so the badge is redundant — only show it where types are mixed
   // (the "all" listing and tag pages).
-  const singleTypeListing = /^\/publications\/(commentaries|book-reviews|interviews)(\/|$)/.test(
-    pathname
-  )
+  const singleTypeListing =
+    /^\/publications\/(commentaries|book-reviews|interviews)(\/|$)/.test(pathname) ||
+    /^\/research-projects(\/|$)/.test(pathname)
+  // On a series landing page (/research-projects/<series>) the series is already
+  // the page heading, so the per-row series badge is redundant there.
+  // (`/research-projects/page/2` is pagination, not a series.)
+  const onSeriesPage = /^\/research-projects\/(?!page(\/|$))[^/]+/.test(pathname)
   const tagCounts = tagData as Record<string, number>
   const tagKeys = Object.keys(tagCounts)
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
@@ -98,11 +107,13 @@ export default function ListLayoutWithTags({
   return (
     <>
       <div className="px-4 sm:px-6 lg:px-8 xl:px-0">
-        <div className="pt-6 pb-6">
-          <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:hidden sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
-            {title}
-          </h1>
-        </div>
+        {!intro && (
+          <div className="pt-6 pb-6">
+            <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:hidden sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
+              {title}
+            </h1>
+          </div>
+        )}
         <div className="flex sm:space-x-24">
           <div className="hidden h-full max-h-screen max-w-[280px] min-w-[280px] flex-wrap overflow-auto rounded-sm bg-gray-50 pt-5 shadow-md sm:flex dark:bg-gray-900/70 dark:shadow-gray-800/40">
             <div className="px-6 py-4">
@@ -141,10 +152,12 @@ export default function ListLayoutWithTags({
           </div>
           <div className="mx-8 w-full">
             {pathname.startsWith('/publications') && <CategoryTabs />}
+            {intro}
             <ul>
               {displayPosts.map((post) => {
-                const { path, date, title, summary, tags, pubType, authors } = post
+                const { path, date, title, summary, tags, pubType, authors, series } = post
                 const postAuthors = resolveAuthors(authors, authorsBySlug)
+                const seriesEntry = series && !onSeriesPage ? getSeries(series) : undefined
                 return (
                   <li
                     key={path}
@@ -174,6 +187,15 @@ export default function ListLayoutWithTags({
                               <Tag key={tag} text={tag} />
                             ))}
                           </div>
+                          {seriesEntry && (
+                            <Link
+                              href={`/research-projects/${seriesEntry.slug}`}
+                              prefetch={false}
+                              className="border-gold hover:text-gold mt-2 inline-flex items-center border-l-2 pl-2 text-[11px] font-bold tracking-[0.18em] text-gray-900 uppercase transition-colors dark:text-gray-100"
+                            >
+                              {seriesEntry.title}
+                            </Link>
+                          )}
                         </div>
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">
                           {summary}
