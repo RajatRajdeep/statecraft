@@ -96,8 +96,10 @@
 
 @layer utilities {
   .prose {
+    overflow-wrap: anywhere;
     & a {
       color: var(--color-primary-500);
+      overflow-wrap: anywhere;
       &:hover {
         color: var(--color-primary-600);
       }

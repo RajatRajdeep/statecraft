@@ -43,7 +43,21 @@ const pubTypeSegment = (pubType?: string) => PUBTYPE_SEGMENT[pubType ?? ''] ?? '
 const flatSlug = (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, '')
 
 // Full type-segmented path used for links, sitemap and canonical URLs.
-const publicationPath = (doc) => `publications/${pubTypeSegment(doc.pubType)}/${flatSlug(doc)}`
+// Research papers live in their own top-level section, keyed by series:
+// `research-projects/<series>/<slug>`. Every other type is
+// `publications/<segment>/<slug>`.
+const publicationPath = (doc) => {
+  if (doc.pubType === 'research') {
+    if (!doc.series) {
+      throw new Error(
+        `Research publication "${doc._raw.sourceFilePath}" is missing the required \`series\` frontmatter field. ` +
+          `Use one of the slugs defined in data/researchSeriesData.ts.`
+      )
+    }
+    return `research-projects/${doc.series}/${flatSlug(doc)}`
+  }
+  return `publications/${pubTypeSegment(doc.pubType)}/${flatSlug(doc)}`
+}
 
 // heroicon mini link
 const icon = fromHtmlIsomorphic(
@@ -122,9 +136,14 @@ export const Publication = defineDocumentType(() => ({
     // `type` for the document-type discriminator.
     pubType: {
       type: 'enum',
-      options: ['commentary', 'book-review', 'interview'],
+      options: ['commentary', 'book-review', 'interview', 'research'],
       required: true,
     },
+    // Research papers belong to a series. `series` is the registry slug from
+    // data/researchSeriesData.ts and forms part of the URL; `seriesOrder` is
+    // the optional "Part N" position within that series.
+    series: { type: 'string' },
+    seriesOrder: { type: 'number' },
     lang: { type: 'enum', options: ['english', 'hindi'], default: 'english' },
     tags: { type: 'list', of: { type: 'string' }, default: [] },
     lastmod: { type: 'date' },

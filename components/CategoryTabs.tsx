@@ -16,7 +16,8 @@ function isActive(pathname: string, href: string): boolean {
   if (href === '/publications') {
     return base === '/publications'
   }
-  return base === href
+  // Prefix match so nested URLs keep their section tab lit.
+  return base === href || base.startsWith(`${href}/`)
 }
 
 export default function CategoryTabs() {

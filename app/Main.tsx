@@ -7,6 +7,7 @@ import AuthorCard from '@/components/AuthorCard'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from '@/data/formatDate'
 import { getAuthorMap, resolveAuthors } from '@/data/authorMap'
+import { getSeries } from '@/data/researchSeriesData'
 
 const MAX_DISPLAY = 6
 
@@ -49,8 +50,10 @@ export default function Home({ posts }) {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {!posts.length && <p className="text-gray-500">No posts found.</p>}
             {posts.slice(0, MAX_DISPLAY).map((post) => {
-              const { slug, path, date, title, summary, tags, images, pubType, authors } = post
+              const { slug, path, date, title, summary, tags, images, pubType, authors, series } =
+                post
               const postAuthors = resolveAuthors(authors, authorMap)
+              const seriesEntry = series ? getSeries(series) : undefined
               return (
                 <article
                   key={slug}
@@ -88,6 +91,15 @@ export default function Home({ posts }) {
                           <Tag key={tag} text={tag} />
                         ))}
                       </div>
+                    )}
+                    {seriesEntry && (
+                      <Link
+                        href={`/research-projects/${seriesEntry.slug}`}
+                        prefetch={false}
+                        className="border-gold hover:text-gold mb-2 inline-flex items-center border-l-2 pl-2 text-[10px] font-bold tracking-[0.18em] text-gray-900 uppercase transition-colors dark:text-gray-100"
+                      >
+                        {seriesEntry.title}
+                      </Link>
                     )}
                     <p className="mb-3 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
                       {summary}

@@ -110,6 +110,27 @@ export default async function PublicationDetail({ slug: rawSlug }: { slug: strin
   )
   const audioSrc = existsSync(audioFile) ? `/static/audio/commentaries/${slug}.mp3` : undefined
 
+  // Research papers ship with a typeset PDF edition, produced by the institute
+  // and committed under public/static/pdf/research-projects/<series>/. Probing
+  // for the file means any publication can offer one, not just research. The
+  // BASE_PATH prefix keeps the link correct when the site is served from a
+  // subpath.
+  const pdfFile = post.series
+    ? path.join(
+        process.cwd(),
+        'public',
+        'static',
+        'pdf',
+        'research-projects',
+        post.series,
+        `${slug}.pdf`
+      )
+    : undefined
+  const pdfHref =
+    pdfFile && existsSync(pdfFile)
+      ? `${process.env.BASE_PATH || ''}/static/pdf/research-projects/${post.series}/${slug}.pdf`
+      : undefined
+
   return (
     <>
       <script
@@ -122,6 +143,7 @@ export default async function PublicationDetail({ slug: rawSlug }: { slug: strin
         next={next}
         prev={prev}
         audioSrc={audioSrc}
+        pdfHref={pdfHref}
       >
         <MDXLayoutRenderer code={post.body.code} components={components} toc={post.toc} />
       </Layout>
