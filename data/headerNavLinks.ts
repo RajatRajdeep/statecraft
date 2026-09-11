@@ -19,6 +19,10 @@ const headerNavLinks = [
         href: '/research-projects/brahmastra-nuclear-statecraft',
         title: 'Brahmastra Series on Nuclear Statecraft',
       },
+      {
+        href: '/research-projects/kautilya-machiavelli-statecraft',
+        title: 'Kautilya-Machiavelli Perspectives on Statecraft',
+      },
     ],
   },
   { href: '/expert-contributors', title: 'Expert Contributors' },

@@ -34,6 +34,16 @@ export const researchSeries: ResearchSeries[] = [
     ],
     order: 1,
   },
+  {
+    slug: 'kautilya-machiavelli-statecraft',
+    title: 'Kautilya-Machiavelli Perspectives on Statecraft',
+    tagline:
+      'Policy-relevant research on geopolitics, grand strategy and statecraft, grounded in strategic realism.',
+    description: [
+      'The Kautilya–Machiavelli Perspectives on Statecraft (KMPS) is dedicated to advancing rigorous scholarship on geopolitics, grand strategy and the practice of statecraft. Inspired by the enduring intellectual legacies of Kautilya and Machiavelli, the series brings together policy-relevant research grounded in strategic realism while encouraging original thinking. Through concise Issue Briefs, Strategic Insights, Policy Papers and other scholarly contributions, KMPS seeks to foster informed debate and provide scholars and practitioners with timely insights into contemporary challenges in international affairs and strategic decision-making.',
+    ],
+    order: 2,
+  },
 ]
 
 /** Look up a series by its slug. */
